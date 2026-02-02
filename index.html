@@ -2126,7 +2126,7 @@
                 from: 'Chief Superintendent Davies',
                 to: 'Detective Meg Bedford',
                 subject: '🎉 CONFIDENTIAL - Case Recognition Award',
-                date: 'March 17, 2024, 09:00',
+                date: 'March 17, 2026, 09:00',
                 preview: 'Outstanding work on the Cuevas case. Special recognition...',
                 read: false,
                 locked: true,
@@ -2134,10 +2134,16 @@
                 <p><strong style="color: var(--accent);">🎉 CONGRATULATIONS!</strong></p>
                 <p>Your exceptional work on the George Cuevas homicide has not gone unnoticed. The conviction of Jack Osborne brings closure to the e-sports community.</p>
                 <p>As recognition for your outstanding investigative skills, Avon & Somerset Police - in partnership with the <strong>E-sports Integrity Commission</strong> - has selected you for a special assignment:</p>
-                <div style="background: linear-gradient(135deg, var(--police-blue), var(--police-blue-light)); padding: 24px; border-radius: 12px; margin: 20px 0; text-align: center;">
-                    <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">You're Going To</div>
-                    <div style="font-size: 32px; font-weight: 800; color: var(--accent); text-shadow: 0 2px 10px rgba(201, 162, 39, 0.3);">BUCHAREST, ROMANIA</div>
-                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">5th - 7th April 2024</div>
+                <div id="destinationReveal" style="background: linear-gradient(135deg, var(--police-blue), var(--police-blue-light)); padding: 24px; border-radius: 12px; margin: 20px 0; text-align: center;">
+                    <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;">You're Going To</div>
+                    <div id="destinationHidden" style="cursor: pointer;">
+                        <div style="font-size: 48px; margin-bottom: 12px;">🎁</div>
+                        <button onclick="revealDestination()" style="background: var(--accent); color: #000; border: none; padding: 12px 32px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease;">Click to Reveal</button>
+                    </div>
+                    <div id="destinationRevealed" style="display: none;">
+                        <div style="font-size: 32px; font-weight: 800; color: var(--accent); text-shadow: 0 2px 10px rgba(201, 162, 39, 0.3); animation: scaleIn 0.5s ease;">BUCHAREST, ROMANIA</div>
+                        <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">5th - 7th March 2026</div>
+                    </div>
                 </div>
                 <p>You will attend the <strong>Bucharest Major</strong> as an official E-sports Integrity Observer. Yes - Fnatic's next match. Ironic, given the circumstances.</p>
                 <p>Your flight tickets and tournament pass are attached below.</p>
@@ -2155,7 +2161,7 @@
                 from: 'Chief Superintendent Davies',
                 to: 'Detective Meg Bedford',
                 subject: '⚠️ RE: Case Recognition Award - CHANGE OF PLANS',
-                date: 'March 17, 2024, 09:15',
+                date: 'March 17, 2026, 09:15',
                 preview: 'Unfortunately, the tournament has been called off...',
                 read: false,
                 locked: true,
@@ -2171,14 +2177,67 @@
                     <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Instead, we've arranged...</div>
                     <div style="font-size: 24px; font-weight: 700; color: white;">A Proper Break 🌴</div>
                 </div>
-                <p>Attached below: your accommodation booking and a <strong>night session at Therme Bucharest</strong> - Europe's largest thermal spa. Consider it a reward for solving the case.</p>
+                <p>Your full trip details are below. Consider it a reward for solving the case.</p>
+                
+                <!-- FLIGHTS -->
+                <div style="background: #0d1117; border-radius: 12px; overflow: hidden; margin: 20px 0; border: 1px solid #30363d;">
+                    <div style="background: #161b22; padding: 16px; border-bottom: 2px solid #d4af37; text-align: center;">
+                        <div style="font-size: 20px; margin-bottom: 4px;">✈️</div>
+                        <div style="font-size: 14px; font-weight: 700; color: #d4af37; letter-spacing: 1px;">FLIGHT CONFIRMATION</div>
+                        <div style="font-size: 10px; color: #8b949e;">Booking: SURPRISE2026</div>
+                    </div>
+                    <div style="padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="background: #161b22; padding: 12px; border-radius: 8px; border: 1px solid #30363d;">
+                            <div style="font-size: 9px; color: #8b949e; text-transform: uppercase;">Outbound - FR5341</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #e6edf3; margin: 4px 0;">Bristol → Bucharest</div>
+                            <div style="font-size: 11px; color: #8b949e;">Thu 05 Mar | <span style="color: #d4af37;">12:30</span> → <span style="color: #4ade80;">17:50</span></div>
+                        </div>
+                        <div style="background: #161b22; padding: 12px; border-radius: 8px; border: 1px solid #30363d;">
+                            <div style="font-size: 9px; color: #8b949e; text-transform: uppercase;">Return - FR5342</div>
+                            <div style="font-size: 12px; font-weight: 600; color: #e6edf3; margin: 4px 0;">Bucharest → Bristol</div>
+                            <div style="font-size: 11px; color: #8b949e;">Sat 07 Mar | <span style="color: #d4af37;">17:05</span> → <span style="color: #4ade80;">18:25</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ACCOMMODATION -->
+                <div style="background: #0d1117; border-radius: 12px; overflow: hidden; margin: 20px 0; border: 1px solid #30363d;">
+                    <div style="background: linear-gradient(135deg, #FF5A5F, #bd1e2e); padding: 16px; text-align: center;">
+                        <div style="font-size: 20px; margin-bottom: 4px;">🏠</div>
+                        <div style="font-size: 14px; font-weight: 700; color: white; letter-spacing: 1px;">AIRBNB CONFIRMATION</div>
+                        <div style="font-size: 10px; color: rgba(255,255,255,0.7);">Code: DETECTIVE2026</div>
+                    </div>
+                    <div style="padding: 16px;">
+                        <div style="font-size: 16px; font-weight: 700; color: #FF5A5F; margin-bottom: 4px;">AIR Apartment & Garden</div>
+                        <div style="font-size: 11px; color: #8b949e; margin-bottom: 12px;">📍 Otopeni, near Henri Coandă Airport</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; border-top: 1px solid #30363d;">
+                            <div><span style="font-size: 10px; color: #8b949e;">CHECK-IN</span><div style="font-size: 13px; font-weight: 600; color: #e6edf3;">Thu, 5th March</div><div style="font-size: 10px; color: #8b949e;">After 15:00</div></div>
+                            <div><span style="font-size: 10px; color: #8b949e;">CHECK-OUT</span><div style="font-size: 13px; font-weight: 600; color: #e6edf3;">Sat, 7th March</div><div style="font-size: 10px; color: #8b949e;">Before 11:00</div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- THERME SPA -->
+                <div style="background: #0d1117; border-radius: 12px; overflow: hidden; margin: 20px 0; border: 1px solid #30363d;">
+                    <div style="background: linear-gradient(135deg, #00aaff, #0077cc); padding: 16px; text-align: center;">
+                        <div style="font-size: 20px; margin-bottom: 4px;">💦</div>
+                        <div style="font-size: 14px; font-weight: 700; color: white; letter-spacing: 1px;">THERME BUCHAREST</div>
+                        <div style="font-size: 10px; color: rgba(255,255,255,0.7);">VIP Platinum Night Session</div>
+                    </div>
+                    <div style="padding: 16px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #00aaff; margin-bottom: 12px;">ACCESS ALL AREAS</div>
+                        <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 12px;">
+                            <div style="text-align: center;"><div style="font-size: 20px;">🌴</div><div style="font-size: 10px; color: #e6edf3;">The Palm</div></div>
+                            <div style="text-align: center;"><div style="font-size: 20px;">🌌</div><div style="font-size: 10px; color: #e6edf3;">Galaxy</div></div>
+                            <div style="text-align: center;"><div style="font-size: 20px;">✨</div><div style="font-size: 10px; color: #e6edf3;">Elysium</div></div>
+                        </div>
+                        <div style="font-size: 11px; color: #8b949e;">🕐 Night Session (18:00 - Close) | 🥂 Complimentary Drink</div>
+                    </div>
+                </div>
+                
                 <p>Enjoy your trip, Detective. You've more than earned it.</p>
                 <p>Chief Superintendent Davies<br>Avon & Somerset Police</p>`,
-                attachments: [
-                    {id: 'bucharest-flights', name: '✈️ Flight Confirmation', type: 'Ticket', icon: '✈️'},
-                    {id: 'bucharest-airbnb', name: '🏠 Accommodation', type: 'Booking', icon: '🏠'},
-                    {id: 'bucharest-therme', name: '💦 Therme Spa - Night Session', type: 'Activity', icon: '💦'}
-                ],
+                attachments: [],
                 answer: [],
                 nextEmail: null
             }
@@ -2295,13 +2354,13 @@
                 name: "Ellie's Threatening Texts", type: 'Messages', collected: false, phase: 2,
                 content: `<div class="phone-screen">
                     <div class="phone-header"><div style="font-weight: 600;">George 💔</div><div style="font-size: 11px; color: var(--text-muted);">Messages (Recovered from Victim's Phone)</div></div>
-                    <div class="text-bubble received"><div>George please just talk to me. I need to see you.</div><div class="text-meta">March 15, 20:15</div></div>
-                    <div class="text-bubble received"><div>I saw your Instagram. You're at the Bristol Grand?</div><div class="text-meta">March 15, 21:30</div></div>
-                    <div class="text-bubble received"><div>I'm coming to the hotel. We need to talk.</div><div class="text-meta">March 15, 22:15</div></div>
-                    <div class="text-bubble received"><div>You can't just ignore me like this. After everything?!</div><div class="text-meta">March 15, 22:35</div></div>
-                    <div class="text-bubble received" style="background: linear-gradient(135deg, var(--danger-dim), rgba(220,53,69,0.3)); border: 1px solid var(--danger);"><div style="color: var(--danger); font-weight: 600;">I'M OUTSIDE YOUR ROOM. OPEN THE DOOR OR I SWEAR...</div><div class="text-meta">March 15, 22:50</div></div>
+                    <div class="text-bubble received"><div>George please just talk to me. I need to see you.</div><div class="text-meta">March 15, 19:25</div></div>
+                    <div class="text-bubble received"><div>I saw your Instagram. You're at the Bristol Grand?</div><div class="text-meta">March 15, 20:40</div></div>
+                    <div class="text-bubble received"><div>I'm coming to the hotel. We need to talk.</div><div class="text-meta">March 15, 21:25</div></div>
+                    <div class="text-bubble received"><div>You can't just ignore me like this. After everything?!</div><div class="text-meta">March 15, 21:45</div></div>
+                    <div class="text-bubble received" style="background: linear-gradient(135deg, var(--danger-dim), rgba(220,53,69,0.3)); border: 1px solid var(--danger);"><div style="color: var(--danger); font-weight: 600;">I'M OUTSIDE YOUR ROOM. OPEN THE DOOR OR I SWEAR...</div><div class="text-meta">March 15, 22:00</div></div>
                     <div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 11px; border-top: 1px dashed var(--border); margin-top: 12px;">
-                        ⚠️ INVESTIGATOR NOTE: Despite threatening language, CCTV confirms Ellie left the hotel at 22:55 - before the estimated time of death.
+                        ⚠️ INVESTIGATOR NOTE: Despite threatening language, CCTV confirms Ellie left the hotel at 22:05 - before the estimated time of death.
                     </div>
                 </div>`
             },
@@ -2462,10 +2521,10 @@
                 name: "Ellie's Text Messages", type: 'Messages', collected: false, phase: 2,
                 content: `<div class="phone-screen">
                     <div class="phone-header"><div style="font-weight: 600;">Ellie Miles</div><div style="font-size: 11px; color: var(--text-muted);">Messages (Recovered)</div></div>
-                    <div class="text-bubble sent"><div>George why won't you answer me?</div><div class="text-meta">March 15, 19:00</div></div>
-                    <div class="text-bubble sent"><div>I know you're in Bristol. We need to talk about us.</div><div class="text-meta">March 15, 20:15</div></div>
-                    <div class="text-bubble sent"><div>You can't ignore me forever. I'll always be here for you.</div><div class="text-meta">March 15, 21:30</div></div>
-                    <div class="text-bubble sent" style="background: var(--danger-dim); border: 1px solid var(--danger);"><div>I'M OUTSIDE YOUR ROOM GEORGE. IF YOU DON'T OPEN THIS DOOR I SWEAR TO GOD.</div><div class="text-meta">March 15, 22:50</div></div>
+                    <div class="text-bubble sent"><div>George why won't you answer me?</div><div class="text-meta">March 15, 18:30</div></div>
+                    <div class="text-bubble sent"><div>I know you're in Bristol. We need to talk about us.</div><div class="text-meta">March 15, 19:25</div></div>
+                    <div class="text-bubble sent"><div>You can't ignore me forever. I'll always be here for you.</div><div class="text-meta">March 15, 20:40</div></div>
+                    <div class="text-bubble sent" style="background: var(--danger-dim); border: 1px solid var(--danger);"><div>I'M OUTSIDE YOUR ROOM GEORGE. IF YOU DON'T OPEN THIS DOOR I SWEAR TO GOD.</div><div class="text-meta">March 15, 22:00</div></div>
                 </div>`
             },
             'ellie-deleted-msgs': {
@@ -2500,7 +2559,7 @@
                 name: "Ellie's Interview", type: 'Transcript', collected: false, phase: 2,
                 content: `<div class="document"><div class="document-header"><div class="document-title">Witness Interview</div><div class="document-meta">Ellie Miles (19)</div></div>
                 <div class="document-section"><p>"I was home alone all night. George and I... we had history. I just wanted to talk to him, that's all. I would never hurt him. I loved him."</p>
-                <p><strong>Investigator Note:</strong> Subject emotional. Claims to have been home alone, but witness accounts from 'Flores & Friends' suggest she may have been at the shop later than claimed. CCTV recovered from 22:50 shows a female subject matching her description in the hotel's rear service entrance at 22:50, but she exits at 22:55 - well before the murder window. She's clearly lying about her location, but timeline rules her out as the killer.</p></div></div>`
+                <p><strong>Investigator Note:</strong> Subject emotional. Claims to have been home alone, but witness accounts from 'Flores &amp; Friends' suggest she may have been at the shop later than claimed. CCTV recovered shows a female subject matching her description in the hotel's rear service entrance at 22:00, but she exits at 22:05 - well before the murder window. She's clearly lying about her location, but timeline rules her out as the killer.</p></div></div>`
             },
             'bucharest-flights': {
                 name: '✈️ Flight Confirmation', type: 'Ticket', collected: false, phase: 4,
@@ -2508,7 +2567,7 @@
                     <div style="background: #161b22; padding: 24px; border-bottom: 2px solid #d4af37; text-align: center;">
                         <div style="font-size: 28px; margin-bottom: 4px;">✈️</div>
                         <div style="font-size: 18px; font-weight: 700; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">Flight Confirmation</div>
-                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">Ryanair - Booking Reference: <span style="color: #d4af37; font-weight: 600;">SURPRISE2024</span></div>
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">Ryanair - Booking Reference: <span style="color: #d4af37; font-weight: 600;">SURPRISE2026</span></div>
                     </div>
                     
                     <div style="padding: 24px; border-bottom: 1px solid #30363d;">
@@ -2517,7 +2576,7 @@
                                 <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Outbound Flight</div>
                                 <div style="font-size: 20px; font-weight: 700; color: #d4af37; margin-bottom: 8px;">FR5341</div>
                                 <div style="font-size: 14px; font-weight: 600; margin-bottom: 16px;">Bristol (BRS) → Bucharest (OTP)</div>
-                                <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">Thu, 5th April 2024</div>
+                                <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">Thu, 05 Mar 26</div>
                                 <div style="font-size: 13px;">Departure: <strong style="color: #d4af37;">12:30</strong></div>
                                 <div style="font-size: 13px;">Arrival: <span style="color: #4ade80;">17:50</span></div>
                             </div>
@@ -2526,7 +2585,7 @@
                                 <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Return Flight</div>
                                 <div style="font-size: 20px; font-weight: 700; color: #d4af37; margin-bottom: 8px;">FR5342</div>
                                 <div style="font-size: 14px; font-weight: 600; margin-bottom: 16px;">Bucharest (OTP) → Bristol (BRS)</div>
-                                <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">Sat, 7th April 2024</div>
+                                <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">Sat, 07 Mar 26</div>
                                 <div style="font-size: 13px;">Departure: <strong style="color: #d4af37;">17:05</strong></div>
                                 <div style="font-size: 13px;">Arrival: <span style="color: #4ade80;">18:25</span></div>
                             </div>
@@ -2545,7 +2604,7 @@
                     <div style="background: linear-gradient(135deg, #FF5A5F 0%, #bd1e2e 100%); padding: 24px; text-align: center;">
                         <div style="font-size: 28px; margin-bottom: 4px;">🏠</div>
                         <div style="font-size: 18px; font-weight: 700; color: white; letter-spacing: 2px; text-transform: uppercase;">Airbnb Confirmation</div>
-                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 8px;">Reservation Code: <span style="font-weight: 600;">DETECTIVE2024</span></div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 8px;">Reservation Code: <span style="font-weight: 600;">DETECTIVE2026</span></div>
                     </div>
                     
                     <div style="padding: 24px;">
@@ -2556,12 +2615,12 @@
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; padding: 16px 0; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d;">
                                 <div>
                                     <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Check-in</div>
-                                    <div style="font-size: 16px; font-weight: 700;">Thu, 5th April</div>
+                                    <div style="font-size: 16px; font-weight: 700;">Thu, 5th March 2026</div>
                                     <div style="font-size: 11px; color: #8b949e;">After 15:00</div>
                                 </div>
                                 <div>
                                     <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Check-out</div>
-                                    <div style="font-size: 16px; font-weight: 700;">Sat, 7th April</div>
+                                    <div style="font-size: 16px; font-weight: 700;">Sat, 7th March 2026</div>
                                     <div style="font-size: 11px; color: #8b949e;">Before 11:00</div>
                                 </div>
                             </div>
@@ -3093,8 +3152,18 @@
                 showNotification('PHASE 1 COMPLETE', 'Josh Osborne ruled out.');
                 
                 setTimeout(() => {
+                    showNotification('📧 NEW EMAIL', 'Phase 2: Alibi Verification', {
+                        sticky: true,
+                        onclick: () => {
+                            openEmail('email-2');
+                            document.getElementById('notification').classList.remove('show');
+                        }
+                    });
+                }, 2500);
+                
+                setTimeout(() => {
                     openEmail('email-2');
-                }, 1500);
+                }, 3000);
             } else {
                 const feedback = document.getElementById('phase1-feedback');
                 feedback.className = 'text-danger';
@@ -3128,8 +3197,18 @@
                 showNotification('PHASE 2 COMPLETE', 'Alibi verification successful. Final phase unlocked.');
                 
                 setTimeout(() => {
-                    openEmail('email-3'); // Use existing openEmail
-                }, 1500);
+                    showNotification('📧 NEW EMAIL', 'Phase 3: Case Closure', {
+                        sticky: true,
+                        onclick: () => {
+                            openEmail('email-3');
+                            document.getElementById('notification').classList.remove('show');
+                        }
+                    });
+                }, 2500);
+                
+                setTimeout(() => {
+                    openEmail('email-3');
+                }, 3000);
             } else {
                 const feedback = document.getElementById('phase2-feedback');
                 feedback.className = 'text-danger';
@@ -3279,6 +3358,17 @@
             overlay.innerHTML = `<div class="phase-loading-text">PHASE ${phase} UNLOCKED</div>`;
             document.body.appendChild(overlay);
             setTimeout(() => overlay.remove(), 1500);
+        }
+        
+        function revealDestination() {
+            const hidden = document.getElementById('destinationHidden');
+            const revealed = document.getElementById('destinationRevealed');
+            if (hidden && revealed) {
+                hidden.style.display = 'none';
+                revealed.style.display = 'block';
+                // Mini confetti for reveal
+                launchConfetti();
+            }
         }
 
         function unlockPhase(phase) {
