@@ -1,0 +1,16 @@
+{
+  "name": "the-bath-bloodbath",
+  "version": "1.0.0",
+  "description": "Interactive police investigation game",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "dev": "serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

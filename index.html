@@ -1,0 +1,3546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVON & SOMERSET POLICE - The Bath Bloodbath</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #111318;
+            --bg-tertiary: #1a1d24;
+            --bg-card: #14171d;
+            --border: #252a33;
+            --border-light: #353b45;
+            --text-primary: #e8eaed;
+            --text-secondary: #9aa0a6;
+            --text-muted: #5f6368;
+            --police-blue: #1a3a5c;
+            --police-blue-light: #2d5a8f;
+            --accent: #c9a227;
+            --accent-dim: rgba(201, 162, 39, 0.1);
+            --danger: #d93025;
+            --danger-dim: rgba(217, 48, 37, 0.1);
+            --success: #188038;
+            --warning: #f9ab00;
+            --info: #1a73e8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .police-header {
+            background: var(--bg-secondary);
+            border-bottom: 3px solid var(--police-blue);
+            padding: 0;
+        }
+        .police-banner {
+            background: var(--police-blue);
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .police-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .badge-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .badge-text {
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+        .system-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .case-bar {
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .case-info {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .case-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .case-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .case-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .case-classification {
+            background: var(--danger-dim);
+            color: var(--danger);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid var(--danger);
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 0;
+            background: var(--bg-tertiary);
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-tab:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.03);
+        }
+        .nav-tab.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--police-blue-light);
+            background: var(--bg-card);
+        }
+        .nav-tab .badge {
+            background: var(--danger);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-body { padding: 20px; }
+        .email-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            min-height: 600px;
+        }
+        .email-list {
+            background: var(--bg-secondary);
+            overflow-y: auto;
+        }
+        .email-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .email-item:hover { background: var(--bg-tertiary); }
+        .email-item.active {
+            background: var(--bg-card);
+            border-left: 3px solid var(--police-blue-light);
+        }
+        .email-item.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .email-item.unread .email-subject {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .email-sender {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        .email-subject {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .email-preview {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .email-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            float: right;
+        }
+        .email-viewer {
+            background: var(--bg-card);
+            padding: 24px;
+            overflow-y: auto;
+        }
+        .email-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .header-attachments {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            max-width: 60%;
+        }
+        .attachment-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+        .attachment-pill:hover {
+            border-color: var(--police-blue-light);
+            background: var(--bg-secondary);
+            transform: translateY(-1px);
+        }
+        .attachment-pill.taken {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .attachment-pill-icon { font-size: 14px; }
+        .email-body {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        .email-body p { margin-bottom: 16px; }
+        .attachment-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .attachment-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .attachment-item:hover {
+            border-color: var(--police-blue-light);
+            background: var(--bg-secondary);
+        }
+        .attachment-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--police-blue);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .attachment-info { flex: 1; }
+        .attachment-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .attachment-type {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .attachment-action {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .attachment-action:hover { background: #b8941f; }
+        .attachment-action.taken {
+            background: var(--success);
+            cursor: default;
+        }
+        .answer-section {
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+        .answer-input-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .answer-input {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--police-blue-light);
+        }
+        .answer-input.correct {
+            border-color: var(--success);
+            background: rgba(24, 128, 56, 0.1);
+        }
+        .answer-input.incorrect {
+            border-color: var(--danger);
+            background: rgba(217, 48, 37, 0.1);
+        }
+        .btn {
+            background: var(--police-blue);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover { background: var(--police-blue-light); }
+        .btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+        .progress-tracker {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .progress-title { font-size: 13px; font-weight: 600; }
+        .progress-status {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .progress-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .progress-segment {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .progress-segment.completed { background: var(--success); }
+        .progress-segment.active {
+            background: var(--police-blue-light);
+            animation: pulse-bar 1.5s infinite;
+        }
+        @keyframes pulse-bar {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .evidence-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .evidence-card:hover {
+            border-color: var(--police-blue-light);
+            background: var(--bg-tertiary);
+        }
+        .evidence-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .evidence-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--police-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        .evidence-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .evidence-type {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .evidence-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+        .evidence-status.collected {
+            background: var(--success);
+            color: white;
+        }
+        .evidence-status.locked {
+            background: var(--text-muted);
+            color: var(--bg-primary);
+        }
+        .suspect-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        .suspect-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .suspect-card.primary { border-color: var(--danger); }
+        .suspect-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .suspect-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .suspect-card.primary .suspect-avatar {
+            background: var(--danger-dim);
+            border: 2px solid var(--danger);
+        }
+        .suspect-info { flex: 1; }
+        .suspect-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .suspect-role {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .suspect-status-badge {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .suspect-status-badge.primary {
+            background: var(--danger-dim);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        .suspect-status-badge.witness {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .suspect-body { padding: 16px; }
+        .suspect-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+        }
+        .suspect-detail:last-child { border-bottom: none; }
+        .suspect-detail-label { color: var(--text-muted); }
+        .suspect-detail-value { color: var(--text-secondary); text-align: right; }
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            background: var(--border);
+            border-radius: 50%;
+        }
+        .timeline-item.important::before {
+            background: var(--danger);
+            box-shadow: 0 0 0 4px var(--danger-dim);
+        }
+        .timeline-item.critical::before {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-dim);
+        }
+        .timeline-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .timeline-content {
+            background: var(--bg-secondary);
+            padding: 12px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+        .timeline-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .timeline-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--success);
+            padding: 16px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1000;
+            max-width: 400px;
+        }
+        .notification.show { display: block; }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 24px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-title { font-size: 16px; font-weight: 600; }
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: var(--text-primary); }
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(90vh - 80px);
+        }
+        .document {
+            background: #f5f5f0;
+            color: #1a1a1a;
+            padding: 32px;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.8;
+        }
+        .document-header {
+            text-align: center;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+        }
+        .document-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .document-meta {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .document-section { margin-bottom: 20px; }
+        .document-section-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+        .document p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        .evidence-image {
+            width: 100%;
+            height: 400px;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            border-radius: 6px;
+        }
+        .text-danger { color: var(--danger); }
+        .text-success { color: var(--success); }
+        .text-warning { color: var(--warning); }
+        .text-muted { color: var(--text-muted); }
+        .text-accent { color: var(--accent); }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .hidden { display: none !important; }
+        @media (max-width: 1024px) {
+            .email-container { grid-template-columns: 1fr; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .suspect-list { grid-template-columns: 1fr; }
+        }
+        /* Animation enhancements */
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .evidence-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .evidence-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3), 0 0 0 1px var(--police-blue-light);
+        }
+        .evidence-card.linked {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.2);
+        }
+        .email-item {
+            transition: all 0.3s ease;
+        }
+        .modal {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .timeline-item {
+            opacity: 0;
+            animation: fadeInLeft 0.5s ease forwards;
+        }
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            margin: 12px 0;
+        }
+        .typing-indicator.show { display: block; }
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transform-origin: left center;
+            animation: drawLine 1s ease forwards;
+        }
+        @keyframes drawLine {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        .pulse-clue {
+            animation: pulseClue 2s infinite;
+        }
+        @keyframes pulseClue {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.4); }
+            50% { box-shadow: 0 0 20px 10px rgba(201, 162, 39, 0); }
+        }
+        /* Confetti celebration animation */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        /* Typewriter effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--accent);
+            white-space: nowrap;
+            animation: typing 2s steps(40, end), blinkCursor 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blinkCursor {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--accent); }
+        }
+        /* Phase loading overlay */
+        .phase-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 12, 16, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            animation: fadeInOut 1.5s ease forwards;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .phase-loading-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: pulseText 1s ease infinite;
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        /* Hint button */
+        .hint-btn {
+            background: transparent;
+            border: 1px solid var(--warning);
+            color: var(--warning);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 12px;
+        }
+        .hint-btn:hover {
+            background: var(--warning);
+            color: var(--bg-primary);
+        }
+        .hint-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .hint-text {
+            background: linear-gradient(135deg, var(--warning), #e65100);
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: white;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Notification Toast */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--police-blue), var(--police-blue-light));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px 24px;
+            min-width: 320px;
+            max-width: 400px;
+            z-index: 10001;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 162, 39, 0.3);
+        }
+        .notification.show {
+            transform: translateX(0);
+        }
+        .notification-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .notification-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .notification-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        /* Confetti explosion */
+        #confettiContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .email-container {
+                grid-template-columns: 1fr;
+            }
+            .email-list {
+                max-height: 200px;
+                overflow-y: auto;
+            }
+            .browser-simulation {
+                min-height: 400px;
+            }
+            .card-body {
+                padding: 12px;
+            }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .suspect-card {
+            transition: all 0.3s ease;
+        }
+        .suspect-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        /* Instagram Mockup Styles */
+        .instagram-post {
+            background: #fff;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #262626;
+        }
+        .instagram-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid #efefef;
+        }
+        .instagram-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+        .instagram-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .instagram-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        .instagram-actions {
+            display: flex;
+            gap: 16px;
+            padding: 12px 16px;
+        }
+        .instagram-action { font-size: 24px; cursor: pointer; }
+        .instagram-likes {
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .instagram-caption {
+            padding: 8px 16px 16px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .instagram-caption strong { font-weight: 600; }
+        .instagram-time {
+            padding: 0 16px 12px;
+            font-size: 10px;
+            color: #8e8e8e;
+            text-transform: uppercase;
+        }
+        /* Twitter/X Mockup Styles */
+        .twitter-post {
+            background: #000;
+            border-radius: 16px;
+            max-width: 500px;
+            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #e7e9ea;
+            padding: 16px;
+            border: 1px solid #2f3336;
+        }
+        .twitter-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .twitter-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .twitter-user-info {
+            flex: 1;
+        }
+        .twitter-name {
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .twitter-verified {
+            width: 18px;
+            height: 18px;
+            background: #1d9bf0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        .twitter-handle {
+            color: #71767b;
+            font-size: 15px;
+        }
+        .twitter-content {
+            font-size: 15px;
+            line-height: 1.4;
+            margin: 12px 0;
+            padding-left: 52px;
+        }
+        .twitter-time {
+            color: #71767b;
+            font-size: 13px;
+            padding-left: 52px;
+            margin-top: 12px;
+        }
+        .twitter-engagement {
+            display: flex;
+            gap: 24px;
+            padding: 12px 0 0 52px;
+            border-top: 1px solid #2f3336;
+            margin-top: 12px;
+        }
+        .twitter-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #71767b;
+            font-size: 13px;
+        }
+        .twitter-stat span { font-size: 16px; }
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: scale(1.02);
+            border-color: var(--police-blue-light);
+        }
+        .cross-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--accent-dim);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--accent);
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.2s;
+        }
+        .cross-ref:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+        .contradiction {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--danger-dim);
+            border: 1px solid var(--danger);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--danger);
+            margin-top: 8px;
+        }
+        .text-bubble {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            max-width: 80%;
+            position: relative;
+        }
+        .text-bubble.sent {
+            background: var(--police-blue);
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        .text-bubble.received {
+            border-bottom-left-radius: 4px;
+        }
+        .text-meta {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .phone-screen {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 20px auto;
+            border: 2px solid var(--border);
+        }
+        .phone-header {
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+        }
+        .connections-counter {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+        .connections-counter .count {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .connections-counter .label {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Browser Simulation Styles */
+        .browser-mockup {
+            background: #f0f2f5;
+            color: #1c1e21;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        .browser-toolbar {
+            background: #e4e6eb;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #ced0d4;
+        }
+        .browser-controls {
+            display: flex;
+            gap: 8px;
+        }
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .browser-address-bar {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 4px 16px;
+            font-size: 13px;
+            color: #65676b;
+            border: 1px solid #ced0d4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .browser-bookmarks {
+            background: #e4e6eb;
+            padding: 4px 16px;
+            display: flex;
+            gap: 16px;
+            border-bottom: 1px solid #ced0d4;
+            font-size: 12px;
+        }
+        .bookmark-item {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .bookmark-item:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        .browser-content {
+            flex: 1;
+            overflow-y: auto;
+            position: relative;
+            background: #fff;
+        }
+        
+        /* PhoneFinder Portal Styles */
+        .phonefinder-portal {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 32px;
+            text-align: center;
+        }
+        .phonefinder-logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a73e8;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .phonefinder-search-box {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: 24px;
+        }
+        .phonefinder-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+        .phonefinder-input:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+        .phonefinder-btn {
+            width: 100%;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .phonefinder-btn:hover { background: #1557b0; }
+        
+        .ping-results {
+            margin-top: 32px;
+            text-align: left;
+            animation: fadeIn 0.5s ease;
+        }
+        .ping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        .ping-time { color: #65676b; font-weight: 600; }
+        .ping-loc { color: #1a73e8; font-family: 'JetBrains Mono', monospace; }
+        .ping-status { 
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status-active { background: #e8f0fe; color: #1a73e8; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* JD Gyms Redesign Styles */
+        .gym-portal {
+            background: #000;
+            color: #fff;
+            min-height: 100%;
+            padding: 40px 20px;
+            font-family: 'Montserrat', 'Inter', sans-serif;
+        }
+        .gym-logo {
+            font-size: 42px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: -2px;
+        }
+        .gym-logo span {
+            color: #A2FF00;
+        }
+        .gym-login-card {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #111;
+            padding: 40px;
+            border-radius: 4px;
+            border-bottom: 4px solid #A2FF00;
+        }
+        .gym-input-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .gym-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .gym-input {
+            width: 100%;
+            background: #222;
+            border: 1px solid #333;
+            padding: 14px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        .gym-input:focus {
+            outline: none;
+            border-color: #A2FF00;
+        }
+        .gym-btn {
+            width: 100%;
+            background: #A2FF00;
+            color: #000;
+            border: none;
+            padding: 16px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.1s;
+        }
+        .gym-btn:hover {
+            transform: scale(1.02);
+            background: #b6ff33;
+        }
+        .gym-dashboard {
+            background: #000;
+            color: #fff;
+            padding: 32px;
+            min-height: 100%;
+            text-align: left;
+        }
+        .gym-user-header {
+            background: #111;
+            padding: 24px;
+            border-left: 6px solid #A2FF00;
+            margin-bottom: 32px;
+        }
+        .gym-session-item {
+            background: #111;
+            border: 1px solid #222;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .gym-session-tag {
+            background: #A2FF00;
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+        .gym-security-alert {
+            margin-top: 40px;
+            background: rgba(255, 166, 0, 0.1);
+            border: 1px solid orange;
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .bookmark-item.new-alert {
+            position: relative;
+        }
+        .bookmark-item.new-alert::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
+            border-radius: 50%;
+            border: 2px solid #e4e6eb;
+        }
+
+
+        /* Custom Popup Styles */
+        .police-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            padding: 24px;
+            border-radius: 8px;
+            z-index: 3000;
+            box-shadow: 0 0 30px rgba(201, 162, 39, 0.3);
+            display: none;
+            max-width: 400px;
+            text-align: center;
+        }
+        .police-popup.active { display: block; }
+        .popup-close {
+            margin-top: 16px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .evidence-img-display {
+            max-width: 100%;
+            display: block;
+            margin: 12px auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            max-height: 65vh;
+            object-fit: contain;
+            background: #000;
+        }
+        .evidence-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .evidence-gallery-item {
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 20px;
+        }
+        .evidence-gallery-item:last-child {
+            border-bottom: none;
+        }
+        .evidence-gallery-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="police-header">
+        <div class="police-banner">
+            <div class="police-badge">
+                <div class="badge-icon">🛡️</div>
+                <div class="badge-text">AVON & SOMERSET POLICE</div>
+            </div>
+            <div class="system-status">
+                <div class="status-dot"></div>
+                <span>SYSTEM ONLINE</span>
+                <span style="margin: 0 8px;">|</span>
+                <span class="font-mono">SECURE CONNECTION</span>
+            </div>
+        </div>
+        <div class="case-bar">
+            <div class="case-info">
+                <div class="case-number">BRI-2024-BATH</div>
+                <div>
+                    <div class="case-title">THE BATH BLOODBATH</div>
+                    <div class="case-meta">VICTIM: GEORGE CUEVAS (23) | DETECTIVE: MEG BEDFORD (20) | ASSIGNED: MARCH 16, 2024</div>
+                </div>
+            </div>
+            <div class="case-classification">ACTIVE HOMICIDE</div>
+        </div>
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('dashboard', event)">
+                <span>📊</span> Dashboard
+            </button>
+            <button class="nav-tab" onclick="showSection('emails', event)">
+                <span>📧</span> Case Emails <span class="badge" id="emailBadge">3</span>
+            </button>
+            <button class="nav-tab" onclick="showSection('evidence', event)">
+                <span>📁</span> Evidence Locker
+            </button>
+            <button class="nav-tab" onclick="showSection('browser', event)">
+                <span>🌐</span> Browser
+            </button>
+            <button class="nav-tab" onclick="showSection('suspects', event)">
+                <span>📝</span> Notes
+            </button>
+        </nav>
+    </header>
+
+    <div class="notification" id="notification">
+        <div style="font-weight: 600; margin-bottom: 4px;" id="notifTitle">Notification</div>
+        <div style="font-size: 13px; color: var(--text-secondary);" id="notifText"></div>
+    </div>
+
+    <main class="main-content">
+        <section id="dashboard" class="section active">
+            <div class="progress-tracker">
+                <div class="progress-header">
+                    <div class="progress-title">Investigation Progress</div>
+                    <div class="progress-status" id="progressStatus">PHASE 1 OF 3</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-segment active" id="seg1"></div>
+                    <div class="progress-segment" id="seg2"></div>
+                    <div class="progress-segment" id="seg3"></div>
+                </div>
+                <div class="progress-labels">
+                    <span>Phase 1: Initial Report</span>
+                    <span>Phase 2: Alibi Investigation</span>
+                    <span>Phase 3: Final Verdict</span>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="evidenceCount">2</div>
+                    <div class="stat-label">Evidence Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Persons of Interest</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="taskCount">1</div>
+                    <div class="stat-label">Active Tasks</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><span>📋</span> Case Summary</div>
+                </div>
+                <div class="card-body">
+                    <p style="margin-bottom: 16px;"><strong>Victim:</strong> George Cuevas, 23, E-sports Legend</p>
+                    <p style="margin-bottom: 16px;"><strong>Relationship to Detective:</strong> Professional Acquaintance</p>
+                    <p style="margin-bottom: 16px;"><strong>Note:</strong> Joe Bedford (14) is Detective Bedford's younger brother. This case requires exceptional objectivity.</p>
+                    <p style="margin-bottom: 16px;"><strong>Date of Death:</strong> March 15, 2024 (estimated between 22:45 - 23:30)</p>
+                    <p style="margin-bottom: 16px;"><strong>Cause of Death:</strong> Blunt force trauma</p>
+                    <p style="margin-bottom: 16px;"><strong>Location:</strong> Mercure Bristol Grand Hotel, Room 412</p>
+                    <hr style="border-color: var(--border); margin: 20px 0;">
+                    <p style="color: var(--text-secondary);">
+                        <strong>INVESTIGATIVE FOCUS:</strong> Establish the victim's movements leading up to the incident. Several associates have reported conflicting matches and schedules. Review social media and hotel logs for discrepancies.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="emails" class="section">
+            <div class="email-container">
+                <div class="email-list" id="emailList"></div>
+                <div class="email-viewer" id="emailViewer">
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-muted);">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📧</div>
+                        <div style="font-size: 16px;">Select an email to view</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="evidence" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><span>📁</span> Evidence Locker</div>
+                    <button class="btn" onclick="promptDevMode()" style="font-size: 11px; padding: 6px 12px; background: var(--bg-tertiary); color: var(--text-muted);">🔓 Dev Mode</button>
+                </div>
+                <div class="card-body">
+                    <div class="evidence-grid" id="evidenceGrid"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="browser" class="section">
+            <div class="browser-mockup">
+                <div class="browser-toolbar">
+                    <div class="browser-controls">
+                        <div class="browser-dot" style="background: #ff5f56;"></div>
+                        <div class="browser-dot" style="background: #ffbd2e;"></div>
+                        <div class="browser-dot" style="background: #27c93f;"></div>
+                    </div>
+                    <div class="browser-address-bar">
+                        <span>🔒</span>
+                        <span id="browserUrl">https://www.google.com</span>
+                    </div>
+                </div>
+                <div class="browser-bookmarks">
+                    <div class="bookmark-item" onclick="loadBrowserUrl('https://www.jdgyms.co.uk/login')">
+                        <span>💪</span> JD Gyms
+                    </div>
+                    <div class="bookmark-item" onclick="loadBrowserUrl('https://www.facebook.com')">
+                        <span>👥</span> Facebook
+                    </div>
+                    <div class="bookmark-item" onclick="loadBrowserUrl('https://outlook.live.com')">
+                        <span>📧</span> Outlook
+                    </div>
+                    <div class="bookmark-item new-alert" id="phoneFinderBookmark" onclick="loadBrowserUrl('https://www.phonefinder-police.uk')">
+                        <span>📡</span> PhoneFinder
+                    </div>
+                </div>
+                <div class="browser-content" id="browserContent">
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted);">
+                        <div style="font-size: 64px; margin-bottom: 24px;">🌐</div>
+                        <h2>Secure Police Browser</h2>
+                        <p>Access authorized investigation portals and databases.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="suspects" class="section">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><span>📝</span> Investigation Notes</div>
+                </div>
+                <div class="card-body">
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 13px;">Keep track of your findings about each person of interest. Notes are saved automatically.</p>
+                    
+                    <div class="notes-grid" style="display: grid; gap: 16px;">
+                        <div class="note-card" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; background: var(--danger-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">🧑</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Jack Osborne</div>
+                                    <div style="font-size: 12px; color: var(--text-muted);">Person of Interest</div>
+                                </div>
+                            </div>
+                            <textarea id="notes-jack" class="note-textarea" placeholder="What do you know about Jack? Where was he? Any suspicious behavior?" style="width: 100%; min-height: 80px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 13px; resize: vertical;" onchange="saveNotes()"></textarea>
+                        </div>
+
+                        <div class="note-card" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; background: var(--accent-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">🏗️</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Josh Osborne</div>
+                                    <div style="font-size: 12px; color: var(--text-muted);">Person of Interest</div>
+                                </div>
+                            </div>
+                            <textarea id="notes-josh" class="note-textarea" placeholder="What do you know about Josh? His alibi? Connection to the case?" style="width: 100%; min-height: 80px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 13px; resize: vertical;" onchange="saveNotes()"></textarea>
+                        </div>
+
+                        <div class="note-card" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; background: var(--success-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">💪</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Joe Bedford</div>
+                                    <div style="font-size: 12px; color: var(--text-muted);">Person of Interest</div>
+                                </div>
+                            </div>
+                            <textarea id="notes-joe" class="note-textarea" placeholder="What do you know about Joe? Where was he during the incident?" style="width: 100%; min-height: 80px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 13px; resize: vertical;" onchange="saveNotes()"></textarea>
+                        </div>
+
+                        <div class="note-card" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #ff6b6b, #feca57); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">💐</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">Ellie Miles (19)</div>
+                                    <div style="font-size: 12px; color: var(--text-muted);">Person of Interest</div>
+                                </div>
+                            </div>
+                            <textarea id="notes-ellie" class="note-textarea" placeholder="What do you know about Ellie? Her relationship to the victim?" style="width: 100%; min-height: 80px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 13px; resize: vertical;" onchange="saveNotes()"></textarea>
+                        </div>
+
+                        <div class="note-card" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">🎮</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">George Cuevas (Victim)</div>
+                                    <div style="font-size: 12px; color: var(--text-muted);">E-Sports Legend</div>
+                                </div>
+                            </div>
+                            <textarea id="notes-george" class="note-textarea" placeholder="Notes about George. Known enemies? Recent conflicts? Why was he targeted?" style="width: 100%; min-height: 80px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 13px; resize: vertical;" onchange="saveNotes()"></textarea>
+                        </div>
+
+                        <div class="note-card" style="background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <div style="width: 40px; height: 40px; background: var(--police-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">📋</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary);">General Notes</div>
+                                    <div style="font-size: 12px; color: var(--text-muted);">Timeline, theories, evidence connections</div>
+                                </div>
+                            </div>
+                            <textarea id="notes-general" class="note-textarea" placeholder="Keep track of the timeline, your theories, and how the evidence connects..." style="width: 100%; min-height: 120px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-family: inherit; font-size: 13px; resize: vertical;" onchange="saveNotes()"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="evidenceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Evidence</div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="connections-counter" id="connectionsCounter" style="display: none;">
+        <div class="count" id="connectionsCount">0</div>
+        <div class="label">Links</div>
+    </div>
+
+    <div class="police-popup" id="resetPopup">
+        <div style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--accent);">PASSWORD RESET</div>
+        <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;" id="resetPopupText">
+            Successful. Account authentication updated. Temporary credentials have been synchronized with your department workstation.
+        </div>
+        <button class="popup-close" onclick="closePopup()">CLOSE</button>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <div class="notification-title" id="notifTitle">Title</div>
+            <div class="notification-text" id="notifText">Message</div>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confettiContainer"></div>
+
+    <script>
+        const gameState = {
+            currentPhase: 1,
+            emailsRead: [],
+            evidenceCollected: ['initial-report', 'crime-scene'],
+            connectionsFound: [],
+            answersGiven: {},
+            phaseUnlocked: {1: true, 2: false, 3: false}
+        };
+
+        // Evidence link relationships for cross-referencing
+        const evidenceLinks = {
+            'gym-log': ['cctv-gym'],
+            'cctv-gym': ['gym-log', 'texts-maddie-meg'],
+            'cctv-mcd': ['texts-jack-josh'],
+            'texts-jack-josh': ['cctv-mcd'],
+            'cctv-thekla': ['flower-cctv'],
+            'texts-ellie-josh': ['texts-recovered', 'texts-ellie-friend'],
+            'texts-recovered': ['texts-ellie-josh', 'forensic-shears'],
+            'texts-ellie-friend': ['texts-ellie-josh', 'forensic-shears'],
+            'forensic-shears': ['texts-ellie-friend', 'flower-cctv'],
+            'flower-cctv': ['cctv-thekla', 'forensic-shears'],
+            'maddie-stmt': ['texts-maddie-meg', 'cctv-gym'],
+            'texts-maddie-meg': ['maddie-stmt', 'cctv-gym'],
+            'ellie-messages': ['ellie-statement', 'hotel-cctv'],
+            'ellie-statement': ['ellie-messages'],
+            'jack-twitter': ['texts-jack-hidden', 'phone-logs'],
+            'george-instagram': ['hotel-cctv', 'crime-scene'],
+            'ellie-instagram': ['ellie-messages', 'ellie-statement']
+        };
+
+        const emails = [
+            {
+                id: 'email-1',
+                phase: 1,
+                from: 'DCI Sarah Mitchell',
+                to: 'Detective Meg Bedford',
+                subject: 'CASE ASSIGNMENT - Bath Homicide (BRI-2024-BATH)',
+                date: 'March 16, 2024, 08:30',
+                preview: 'Lead investigator assignment for the George Cuevas case...',
+                read: false,
+                locked: false,
+                content: `<p>Detective Bedford,</p>
+                <p>You've been assigned as lead investigator on the George Cuevas homicide. George was discovered in Room 412 of the Bristol Grand Hotel. Blunt force trauma. No sign of a struggle - he may have known his killer.</p>
+                <p><strong>INITIAL ASSESSMENT:</strong> We have four persons of interest: Jack Osborne (obsessive fan), Josh Osborne (Jack's brother), Ellie Miles (19, ex-girlfriend), and Joe Bedford (14, a young fan who followed George). We need to understand their <strong>MOTIVES</strong> before we dig into alibis.</p>
+                <p>Recovered data from their devices and social media points to a lot of friction. Find out what triggered this final confrontation.</p>
+                
+                <div class="answer-section">
+                    <strong>INVESTIGATION TASK - PHASE 1:</strong><br><br>
+                    Determine the exact time Josh Osborne left the JD Gym on March 15, 2024. Use the recovered access credentials to investigate his member portal.<br><br>
+                    
+                    <div style="background: var(--bg-primary); padding: 16px; border-radius: 8px; margin: 16px 0; border: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">PHASE 1 VERIFICATION</div>
+                        <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
+                            What time did Josh Osborne check out of JD Gym?
+                        </div>
+                        <div class="answer-input-group">
+                            <input type="text" class="answer-input" id="answer-phase1" placeholder="HH:MM">
+                            <button class="btn" onclick="checkPhase1()">Verify Time</button>
+                        </div>
+                        <div id="phase1-feedback" style="margin-top: 12px; font-size: 13px;"></div>
+                    </div>
+                </div>
+                
+                <p>DCI Sarah Mitchell<br>Avon & Somerset Police</p>`,
+                attachments: [
+                    {id: 'jack-manifesto', name: 'The Fnatic Doctrine', type: 'Data', icon: '📓'},
+                    {id: 'josh-betting-slip', name: 'High Stakes Loss', type: 'Data', icon: '💷'},
+                    {id: 'ellie-farewell', name: 'Email: Closure', type: 'Messages', icon: '✉️'},
+
+                    {id: 'josh-jack-msgs', name: 'Josh & Jack: Private Chat', type: 'Messages', icon: '🤫'},
+                    {id: 'george-instagram', name: "George's Last Posts", type: 'Social Media', icon: '📱'}
+                ],
+                answer: ['21:15'],
+                nextEmail: 'email-2'
+            },
+            {
+                id: 'email-4',
+                phase: 1,
+                from: 'Josh Osborne (Forwarded)',
+                to: 'Meg Bedford',
+                subject: 'Fwd: JD Gyms - Password Reset Request',
+                date: 'March 16, 2024, 09:15',
+                preview: 'Forwarded from josh_os_eng@outlook.com...',
+                read: false,
+                locked: false,
+                content: `<p>---------- Forwarded message ---------</p>
+                <p>From: <strong>JD Gyms Support</strong> <br>
+                Date: March 15, 2024, 17:42<br>
+                Subject: Password Reset Request</p>
+                <p>Hi Josh,</p>
+                <p>We received a request to reset your password. If this was you, please click the button below to generate a new temporary password.</p>
+                <div style="text-align: center; margin: 24px 0;">
+                    <button class="btn" onclick="handlePasswordReset()">RESET PASSWORD</button>
+                </div>
+                <p style="font-size: 11px; color: var(--text-muted); padding: 12px; border: 1px dashed var(--border); border-radius: 4px;">
+                    <strong>IT SECURITY NOTE:</strong> Temporary passwords are auto-generated as <strong>'gym'</strong> followed by your <strong>Registration Year</strong>. Your account was created in 2024.
+                </p>
+                <p>Best,<br>The JD Gyms Team</p>`,
+                attachments: [],
+                answer: [],
+                nextEmail: null
+            },
+            {
+                id: 'email-2',
+                phase: 2,
+                from: 'DCI Sarah Mitchell',
+                to: 'Detective Meg Bedford',
+                subject: 'PHASE 2 - Alibi Investigation (BRI-2024-BATH)',
+                date: 'March 16, 2024, 10:15',
+                preview: 'Phase 1 complete. Verify suspect alibis...',
+                read: false,
+                locked: true,
+                content: `<p>Detective Bedford,</p>
+                <p><strong style="color: var(--success);">✓ PHASE 1 COMPLETE</strong>. Portal accessed. Josh was at JD Gym until 21:15 - this confirms he wasn't near the hotel during the murder window.</p>
+                <p><strong>NEW EVIDENCE:</strong> We've recovered CCTV from McDonald's, hotel security footage, and witness statements. Joe was at Hengrove Leisure Center (far South Bristol) - confirmed via PhoneFinder. Ellie was at the hotel but left early. Jack claims he dropped mates off in town, then went to McDonald's Cabot Circus.</p>
+                <div class="answer-section">
+                    <strong>INVESTIGATION TASK - PHASE 2:</strong><br><br>
+                    Match each suspect to their <strong>verified</strong> location during the window:
+                    <div style="margin-top: 16px;">
+                        <div style="margin-bottom: 12px;">
+                            <label style="font-size: 12px; color: var(--text-muted);">Jack Osborne claims he was at:</label>
+                            <input type="text" class="answer-input" id="answer-jack" placeholder="Location" style="width: 100%; margin-top: 4px;">
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <label style="font-size: 12px; color: var(--text-muted);">Ellie Miles was at:</label>
+                            <input type="text" class="answer-input" id="answer-ellie" placeholder="Location" style="width: 100%; margin-top: 4px;">
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-size: 12px; color: var(--text-muted);">Joe Bedford was at:</label>
+                            <input type="text" class="answer-input" id="answer-joe" placeholder="Location" style="width: 100%; margin-top: 4px;">
+                        </div>
+                        <button class="btn" onclick="checkPhase2()">Verify Alibis</button>
+                        <div id="phase2-feedback" style="margin-top: 12px; font-size: 13px;"></div>
+                    </div>
+                </div>
+                <p>Review the attached evidence carefully. Cross-reference witness statements with the CCTV footage.</p>
+                <p>DCI Sarah Mitchell</p>`,
+                attachments: [
+                    {id: 'cctv-gym', name: 'CCTV: JD Gym', type: 'Video', icon: '🎥'},
+                    {id: 'cctv-mcd', name: 'CCTV: McDonald\'s', type: 'Video', icon: '🎥'},
+                    {id: 'hotel-cctv', name: 'CCTV: Hotel Corridor', type: 'Video', icon: '🎥'},
+                    {id: 'phone-logs', name: 'Phone Location Data (Jack)', type: 'Data', icon: '📱'},
+                    {id: 'joe-statement', name: 'Joe\'s Witness Interview', type: 'Transcript', icon: '📝'},
+                    {id: 'ellie-statement', name: "Ellie's Interview", type: 'Transcript', icon: '📝'},
+                    {id: 'ellie-messages', name: "Ellie's Threatening Texts", type: 'Messages', icon: '⚠️'},
+                    {id: 'witness-statements', name: 'Witness: Jack\'s Friends', type: 'Transcript', icon: '📝'},
+                    {id: 'jack-twitter', name: "Jack's Twitter/X Feed", type: 'Social Media', icon: '🐦'},
+                    {id: 'ellie-instagram', name: "Ellie's Instagram", type: 'Social Media', icon: '📸'}
+                ],
+                answers: {
+                    jack: ['mcdonalds', 'mcdonald\'s', 'mc donalds', 'mcdonalds cabot circus'],
+                    ellie: ['hotel', 'bristol grand', 'bristol grand hotel', 'the hotel'],
+                    joe: ['hengrove', 'hengrove leisure center', 'hengrove leisure', 'hengrove gym']
+                },
+                nextEmail: 'email-3'
+            },
+            {
+                id: 'email-3',
+                phase: 3,
+                from: 'DCI Sarah Mitchell',
+                to: 'Detective Meg Bedford',
+                subject: 'PHASE 3 - Case Closure (BRI-2024-BATH)',
+                date: 'March 16, 2024, 14:30',
+                preview: 'Final verdict required...',
+                read: false,
+                locked: true,
+                content: `<p>Detective Bedford,</p>
+                <p><strong style="color: var(--success);">✓ PHASE 2 COMPLETE</strong>. Alibis verified.</p>
+                <p>Some inconsistencies have emerged. Review the attached forensic analysis and recovered messages carefully. The evidence will point you to the truth.</p>
+                <div class="answer-section">
+                    <strong>INVESTIGATION TASK - PHASE 3 (FINAL):</strong><br><br>
+                    Submit the final report to authorize the arrest warrant:
+                    <div style="margin-top: 16px;">
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-size: 12px; color: var(--text-muted);">Who killed George Cuevas?</label>
+                            <input type="text" class="answer-input" id="answer-killer" placeholder="Full name" style="width: 100%; margin-top: 4px;">
+                        </div>
+                        <button class="btn" onclick="checkPhase3()">Submit Final Report</button>
+                        <div id="phase3-feedback" style="margin-top: 12px; font-size: 13px;"></div>
+                    </div>
+                </div>
+                <p>Review all evidence before submitting your final report.</p>
+                <p>DCI Sarah Mitchell</p>`,
+                attachments: [
+                    {id: 'hoist-tool-analysis', name: 'Forensic: Lamp Analysis', type: 'Report', icon: '🔬'},
+                    {id: 'texts-jack-hidden', name: 'Jack\'s Hidden Messages', type: 'Transcript', icon: '💬'}
+                ],
+                answers: {
+                    killer: ['jack', 'jack osborne']
+                }
+            },
+            {
+                id: 'email-epilogue',
+                phase: 4,
+                from: 'Chief Superintendent Davies',
+                to: 'Detective Meg Bedford',
+                subject: '🎉 CONFIDENTIAL - Case Recognition Award',
+                date: 'March 17, 2024, 09:00',
+                preview: 'Outstanding work on the Cuevas case. Special recognition...',
+                read: false,
+                locked: true,
+                content: `<p>Detective Bedford,</p>
+                <p><strong style="color: var(--accent);">🎉 CONGRATULATIONS!</strong></p>
+                <p>Your exceptional work on the George Cuevas homicide has not gone unnoticed. The conviction of Jack Osborne brings closure to the e-sports community.</p>
+                <p>As recognition for your outstanding investigative skills, Avon & Somerset Police - in partnership with the <strong>E-sports Integrity Commission</strong> - has selected you for a special assignment:</p>
+                <div style="background: linear-gradient(135deg, var(--police-blue), var(--police-blue-light)); padding: 24px; border-radius: 12px; margin: 20px 0; text-align: center;">
+                    <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">You're Going To</div>
+                    <div style="font-size: 32px; font-weight: 800; color: var(--accent); text-shadow: 0 2px 10px rgba(201, 162, 39, 0.3);">BUCHAREST, ROMANIA</div>
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">5th - 7th April 2024</div>
+                </div>
+                <p>You will attend the <strong>Bucharest Major</strong> as an official E-sports Integrity Observer. Yes - Fnatic's next match. Ironic, given the circumstances.</p>
+                <p>Your flight tickets and tournament pass are attached below.</p>
+                <p>Chief Superintendent Davies<br>Avon & Somerset Police</p>`,
+                attachments: [
+                    {id: 'bucharest-flights', name: '✈️ Flight Tickets', type: 'Booking', icon: '✈️'},
+                    {id: 'bucharest-tournament', name: '🎮 VIP Tournament Pass', type: 'Ticket', icon: '🎮'}
+                ],
+                answer: [],
+                nextEmail: 'email-epilogue-2'
+            },
+            {
+                id: 'email-epilogue-2',
+                phase: 4,
+                from: 'Chief Superintendent Davies',
+                to: 'Detective Meg Bedford',
+                subject: '⚠️ RE: Case Recognition Award - CHANGE OF PLANS',
+                date: 'March 17, 2024, 09:15',
+                preview: 'Unfortunately, the tournament has been called off...',
+                read: false,
+                locked: true,
+                content: `<p>Detective Bedford,</p>
+                <p><strong style="color: var(--warning);">⚠️ CHANGE OF PLANS</strong></p>
+                <p>I've just received word from the E-sports Integrity Commission. Due to... well, let's just say the <em>circumstances</em> surrounding the Cuevas case have made Fnatic's participation in the Bucharest Major untenable.</p>
+                <p style="background: var(--danger-dim); padding: 16px; border-radius: 8px; border: 1px solid var(--danger); margin: 16px 0;">
+                    <strong>The tournament appearance has been cancelled.</strong>
+                </p>
+                <p>However...</p>
+                <p style="color: var(--text-primary);">The flights are booked. Non-refundable. So <strong>you're still going to Bucharest</strong>.</p>
+                <div style="background: linear-gradient(135deg, var(--success), #0f5132); padding: 20px; border-radius: 12px; margin: 20px 0; text-align: center;">
+                    <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 8px;">Instead, we've arranged...</div>
+                    <div style="font-size: 24px; font-weight: 700; color: white;">A Proper Break 🌴</div>
+                </div>
+                <p>Attached below: your accommodation booking and a <strong>night session at Therme Bucharest</strong> - Europe's largest thermal spa. Consider it a reward for solving the case.</p>
+                <p>Enjoy your trip, Detective. You've more than earned it.</p>
+                <p>Chief Superintendent Davies<br>Avon & Somerset Police</p>`,
+                attachments: [
+                    {id: 'bucharest-flights', name: '✈️ Flight Confirmation', type: 'Ticket', icon: '✈️'},
+                    {id: 'bucharest-airbnb', name: '🏠 Accommodation', type: 'Booking', icon: '🏠'},
+                    {id: 'bucharest-therme', name: '💦 Therme Spa - Night Session', type: 'Activity', icon: '💦'}
+                ],
+                answer: [],
+                nextEmail: null
+            }
+        ];
+
+        const evidenceData = {
+            'initial-report': {
+                name: 'Initial Homicide Report', type: 'PDF', collected: true,
+                content: `<div class="document">
+                    <div class="document-header"><div class="document-title">Avon & Somerset Police</div><div class="document-meta">INITIAL HOMICIDE REPORT | CASE BRI-2024-BATH</div></div>
+                    <div class="document-section"><div class="document-section-title">Incident Information</div>
+                    <p><strong>Date/Time Reported:</strong> March 16, 2024, 09:15</p>
+                    <p><strong>Date/Time of Incident:</strong> March 15, 2024, estimated 22:45-23:30</p>
+                    <p><strong>Location:</strong> Mercure Bristol Grand Hotel, Room 412</p>
+                    <p><strong>Victim:</strong> George Cuevas, Male, 23 (E-sports Legend)</p></div>
+                    <div class="document-section"><div class="document-section-title">Initial Assessment</div>
+                    <p>Victim discovered in hotel room by staff during morning checkout rounds. Blunt force trauma to head. No signs of forced entry - killer likely had access/talked their way in.</p></div>
+                    <div class="document-section"><div class="document-section-title">Suspects</div>
+                    <p><strong>Jack Osborne</strong> - Documented Fnatic obsession. George was facing Fnatic in tournament next morning.</p>
+                    <p><strong>Josh Osborne</strong> - Jack's brother. Observed with Jack near the hotel shortly before discovery.</p>
+                    <p><strong>Ellie Miles (19)</strong> - Local florist. Reported to have had a 'complicated' relationship with the victim. Witness reports place her near the scene.</p>
+                    <p><strong>Joe Bedford (14)</strong> - Young fan, observed following victim earlier in the week. Known associate of the Osborne brothers.</p></div>
+                </div>`
+            },
+            'crime-scene': {
+                name: 'Crime Scene Photos', type: '📸', collected: true,
+                content: `<img src="Crimescene Photo.jpg" class="evidence-img-display" alt="Crime Scene Photo">
+                <div class="evidence-caption"><div class="evidence-caption-title">Crime Scene - Hotel Room 412</div>
+                <p>George found at the desk. Tournament prep materials scattered. Hotel desk lamp on the floor with visible blood. Door shows no forced entry.</p></div>`
+            },
+            'cctv-gym': {
+                name: 'CCTV: JD Gym', type: 'Video', collected: false, phase: 2,
+                content: `<img src="CCTV - JDGym.jpg" class="evidence-img-display" alt="CCTV JD Gym">
+                <div class="evidence-caption"><div class="evidence-caption-title">CCTV Footage - JD Gym Parking Lot</div>
+                <p><strong>21:15:40</strong> - Subject matching Josh Osborne's description exits gym premises. Vehicle logged leaving parking area at 21:18.</p></div>`
+            },
+            'cctv-mcd': {
+                name: "CCTV: McDonald's", type: 'Video', collected: false, phase: 2,
+                content: `<div class="evidence-gallery">
+                    <div class="evidence-gallery-item">
+                        <div class="evidence-gallery-title">21:00 - 21:30 (Arrival & Socializing)</div>
+                        <img src="CCTV - JackWithFriends.png" class="evidence-img-display" alt="Jack with friends">
+                        <p>Jack Osborne seen with group of friends near entrance. Group disperses at 21:30.</p>
+                    </div>
+                    <div class="evidence-gallery-item">
+                        <div class="evidence-gallery-title">21:35 (Phone Drop-off)</div>
+                        <img src="CCTV - JackLeavingPhne.png" class="evidence-img-display" alt="Jack leaving phone">
+                        <p>Jack seen entering alone, carrying phone. Exits via side door at 21:38.</p>
+                    </div>
+                    <div class="evidence-gallery-item">
+                        <div class="evidence-gallery-title">23:50 (Phone Retrieval)</div>
+                        <img src="CCTV - JackCollectingPhone.png" class="evidence-img-display" alt="Jack collecting phone">
+                        <p>Jack returns, briefly visits charging station area, and departs.</p>
+                    </div>
+                </div>`
+            },
+            'phone-logs': {
+                name: 'Phone Location Data (Jack)', type: 'Data', collected: false, phase: 2,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Phone Location Analysis</div><div class="document-meta">Jack Osborne</div></div>
+                <div class="document-section">
+                <p><strong>21:30 - 00:00</strong> - Device logged at Fixed Access Point: McD_Cabot_Free_WiFi.</p>
+                <p style="color: var(--warning); margin-top: 16px;">⚠️ SYSTEM NOTE: Device remained stationary for duration of log. Check for discrepancies with physical movement reports.</p></div></div>`
+            },
+            'joe-statement': {
+                name: "Joe's Witness Interview", type: 'Transcript', collected: false, phase: 2,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Witness Interview</div><div class="document-meta">Joe Bedford (14)</div></div>
+                <div class="document-section"><p>"I was at Hengrove Leisure Center Gym with my girlfriend Vikki all night. My mum uses PhoneFinder to track my phone - you can check it! The postcode is BS14 0DE. Jack, Josh, and I had tickets to watch George face Fnatic the next morning - we're all huge Fnatic fans. I didn't see Jack that night. I was miles away."</p>
+                <p><strong>Investigator Note:</strong> Subject cooperative. Mother confirmed she uses <a href='https://www.phonefinder-police.uk' style='color: var(--accent);'>PhoneFinder Police Portal</a> to monitor son's location. Joe's phone number: 07700 900412. Location data should be verified via PhoneFinder.</p></div></div>`
+            },
+            'contact-list': {
+                name: 'Recovered Contact List', type: 'Data', collected: false, phase: 1,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Phone Contact Records</div><div class="document-meta">Extracted from Victim's Secondary Device</div></div>
+                <div class="document-section">
+                <table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+                    <tr style="border-bottom: 1px solid #ccc;"><td style="padding: 8px;">Jack Osborne</td><td style="padding: 8px;">07700 900123</td></tr>
+                    <tr style="border-bottom: 1px solid #ccc;"><td style="padding: 8px;">Josh Osborne</td><td style="padding: 8px;">07700 900555</td></tr>
+                    <tr style="border-bottom: 1px solid #ccc; background: rgba(201, 162, 39, 0.1);"><td style="padding: 8px; font-weight: 700;">Joe Bedford</td><td style="padding: 8px; font-weight: 700;">07700 900412</td></tr>
+                    <tr style="border-bottom: 1px solid #ccc;"><td style="padding: 8px;">Ellie Miles</td><td style="padding: 8px;">07700 900888</td></tr>
+                </table>
+                <p style="margin-top: 16px; font-size: 11px; color: #666;">Note: Joe Bedford's number was recently added (March 14). Multiple missed calls from this number on the night of the incident.</p></div></div>`
+            },
+            'hoist-tool-analysis': {
+                name: 'Forensic: Lamp Analysis', type: 'Report', collected: false, phase: 3,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Forensic Analysis</div><div class="document-meta">Weapon IDENTIFIED</div></div>
+                <div class="document-section"><p><strong>CONCLUSION:</strong> Impact patterns consistent with the hotel desk lamp recovered from the scene. Trace amounts of high-velocity blood spatter found on the base and stem of the lamp.</p></div></div>`
+            },
+            'jack-manifesto': {
+                name: 'The Fnatic Doctrine', type: 'Data', collected: false, phase: 1,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Fan Forum Manifesto</div><div class="document-meta">Author: Fnatic_Zealot (Jack Osborne)</div></div>
+                <div class="document-section">
+                <p>"George Cuevas thinks he's a god. He mocks Fnatic every chance he gets. If he humiliates our team at the Major tomorrow, he's dead to me. Someone has to wipe that smirk off his face. Fnatic till I die. 🟠⚫"</p>
+                <p style="margin-top: 16px; font-size: 11px; color: var(--text-muted);">POSTED: March 15, 2024, 18:30</p></div></div>`
+            },
+            'josh-betting-slip': {
+                name: 'High Stakes Loss', type: 'Data', collected: false, phase: 1,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Digital Betting Receipt</div><div class="document-meta">Account: JOsborne95</div></div>
+                <div class="document-section">
+                <p><strong>EVENT:</strong> Bristol Major - Fnatic vs G. Cuevas (Semi-Final)</p>
+                <p><strong>WAGER:</strong> £5,000</p>
+                <p><strong>BET:</strong> George Cuevas to LOSE</p>
+                <p style="color: var(--danger); margin-top: 12px; font-weight: 700;">STATUS: PENDING</p>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 16px;">NOTE: This wager represents 98% of account balance. Loss will result in immediate liquidation.</p></div></div>`
+            },
+            'ellie-farewell': {
+                name: 'Email: Closure', type: 'Messages', collected: false, phase: 1,
+                content: `<div class="document"><div class="document-header"><div class="document-title">RE: Our Future</div><div class="document-meta">From: George Cuevas</div></div>
+                <div class="document-section">
+                <p>Ellie,</p>
+                <p>I'm done. The flowers, the constant checking in... it's too much. I'm moving to America after the Major. Please don't come to the hotel. I need closure, and so do you.</p>
+                <p>Goodbye.</p>
+                <p style="margin-top: 16px; font-size: 11px; color: var(--text-muted);">SENT: March 14, 2024, 23:45</p></div></div>`
+            },
+            'ellie-messages': {
+                name: "Ellie's Threatening Texts", type: 'Messages', collected: false, phase: 2,
+                content: `<div class="phone-screen">
+                    <div class="phone-header"><div style="font-weight: 600;">George 💔</div><div style="font-size: 11px; color: var(--text-muted);">Messages (Recovered from Victim's Phone)</div></div>
+                    <div class="text-bubble received"><div>George please just talk to me. I need to see you.</div><div class="text-meta">March 15, 20:15</div></div>
+                    <div class="text-bubble received"><div>I saw your Instagram. You're at the Bristol Grand?</div><div class="text-meta">March 15, 21:30</div></div>
+                    <div class="text-bubble received"><div>I'm coming to the hotel. We need to talk.</div><div class="text-meta">March 15, 22:15</div></div>
+                    <div class="text-bubble received"><div>You can't just ignore me like this. After everything?!</div><div class="text-meta">March 15, 22:35</div></div>
+                    <div class="text-bubble received" style="background: linear-gradient(135deg, var(--danger-dim), rgba(220,53,69,0.3)); border: 1px solid var(--danger);"><div style="color: var(--danger); font-weight: 600;">I'M OUTSIDE YOUR ROOM. OPEN THE DOOR OR I SWEAR...</div><div class="text-meta">March 15, 22:50</div></div>
+                    <div style="text-align: center; padding: 16px; color: var(--text-muted); font-size: 11px; border-top: 1px dashed var(--border); margin-top: 12px;">
+                        ⚠️ INVESTIGATOR NOTE: Despite threatening language, CCTV confirms Ellie left the hotel at 22:55 - before the estimated time of death.
+                    </div>
+                </div>`
+            },
+            'texts-jack-hidden': {
+                name: "Jack's Hidden Messages", type: 'Transcript', collected: false, phase: 3,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Recovered Encrypted Chat</div><div class="document-meta">Jack Osborne</div></div>
+                <div class="document-section">
+                <p><strong>To Fnatic Fan Forum:</strong> "If George Cuevas beats Fnatic tomorrow I'm going to lose it. He can't keep destroying our team. Someone needs to stop him."</p>
+                <p><strong>Self-Note (March 15, 20:00):</strong> "Bristol Grand. Room 412. Check alibi status. Everything depends on tonight."</p></div></div>`
+            },
+            'jack-twitter': {
+                name: "Jack's Twitter/X Feed", type: 'Social Media', collected: false, phase: 2,
+                content: `<div style="display: flex; flex-direction: column; gap: 16px; padding: 16px; background: #000;">
+                    <div class="twitter-post">
+                        <div class="twitter-header">
+                            <div class="twitter-avatar">JO</div>
+                            <div class="twitter-user-info">
+                                <div class="twitter-name">Jack Osborne <span class="twitter-verified">✓</span></div>
+                                <div class="twitter-handle">@FnaticJack_BRS</div>
+                            </div>
+                        </div>
+                        <div class="twitter-content">
+                            George Cuevas needs to be STOPPED. Fnatic can't keep losing to this guy. 
+                            Someone do something. 🟠⚫ #FnaticForever #ProtectTheTeam
+                        </div>
+                        <div class="twitter-time">8:45 PM · March 15, 2024</div>
+                        <div class="twitter-engagement">
+                            <div class="twitter-stat"><span>💬</span> 12</div>
+                            <div class="twitter-stat"><span>🔁</span> 3</div>
+                            <div class="twitter-stat"><span>❤️</span> 47</div>
+                        </div>
+                    </div>
+                    <div class="twitter-post">
+                        <div class="twitter-header">
+                            <div class="twitter-avatar">JO</div>
+                            <div class="twitter-user-info">
+                                <div class="twitter-name">Jack Osborne <span class="twitter-verified">✓</span></div>
+                                <div class="twitter-handle">@FnaticJack_BRS</div>
+                            </div>
+                        </div>
+                        <div class="twitter-content">
+                            Bristol Major tomorrow. If George beats Fnatic AGAIN I swear... 
+                            This cannot keep happening. 😤
+                        </div>
+                        <div class="twitter-time">4:30 PM · March 15, 2024</div>
+                        <div class="twitter-engagement">
+                            <div class="twitter-stat"><span>💬</span> 8</div>
+                            <div class="twitter-stat"><span>🔁</span> 1</div>
+                            <div class="twitter-stat"><span>❤️</span> 23</div>
+                        </div>
+                    </div>
+                    </div>
+                    <div style="color: var(--text-muted); padding: 12px; border-radius: 8px; font-size: 11px; text-align: center; border: 1px dashed var(--border);">
+                        LOGGED: USER @FnaticJack_BRS - ACCOUNT UNDER MONITORING
+                    </div>
+                </div>`
+            },
+            'ellie-instagram': {
+                name: "Ellie's Instagram", type: 'Social Media', collected: false, phase: 2,
+                content: `<div style="display: flex; flex-direction: column; gap: 16px; padding: 16px; background: #fafafa;">
+                    <div class="instagram-post">
+                        <div class="instagram-header">
+                            <div class="instagram-avatar">EM</div>
+                            <div class="instagram-username">ellie_miles_flowers</div>
+                        </div>
+                        <img src="EllieSocials1.png" class="instagram-image-file" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                        <div class="instagram-actions">
+                            <span class="instagram-action">❤️</span>
+                            <span class="instagram-action">💬</span>
+                            <span class="instagram-action">📤</span>
+                        </div>
+                        <div class="instagram-likes">234 likes</div>
+                        <div class="instagram-caption">
+                            <strong>ellie_miles_flowers</strong> Made a special arrangement for @george_cuevas_esports for his Bristol Major appearance! 💐✨ Good luck tomorrow legend! #FlowersByEllie #BristolMajor #Esports
+                        </div>
+                        <div class="instagram-time">March 15, 2024 · 2:30 PM</div>
+                    </div>
+                    <div class="instagram-post">
+                        <div class="instagram-header">
+                            <div class="instagram-avatar">EM</div>
+                            <div class="instagram-username">ellie_miles_flowers</div>
+                        </div>
+                        <img src="EllieSocials2.png" class="instagram-image-file" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                        <div class="instagram-actions">
+                            <span class="instagram-action">❤️</span>
+                            <span class="instagram-action">💬</span>
+                            <span class="instagram-action">📤</span>
+                        </div>
+                        <div class="instagram-likes">189 likes</div>
+                        <div class="instagram-caption">
+                            <strong>ellie_miles_flowers</strong> Throwback to when George came to the shop 😍 Best customer ever tbh. He's so talented AND sweet! #CrushAlert
+                        </div>
+                        <div class="instagram-time">March 9, 2024 · 6:15 PM</div>
+                    </div>
+                    </div>
+                    <div style="color: var(--text-muted); padding: 12px; border-radius: 8px; font-size: 11px; text-align: center; border: 1px dashed var(--border);">
+                        INTERVIEW TRANSCRIPT REFERENCE: EM-2024-004
+                    </div>
+                </div>`
+            },
+            'george-instagram': {
+                name: "George's Last Posts", type: 'Social Media', collected: false, phase: 1,
+                content: `<div style="display: flex; flex-direction: column; gap: 16px; padding: 16px; background: #fafafa;">
+                    <div class="instagram-post">
+                        <div class="instagram-header">
+                            <div class="instagram-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">GC</div>
+                            <div class="instagram-username">george_cuevas_esports ✓</div>
+                        </div>
+                        <div class="instagram-image" style="background: linear-gradient(135deg, #5f27cd, #341f97);">🎮🏆</div>
+                        <div class="instagram-actions">
+                            <span class="instagram-action">❤️</span>
+                            <span class="instagram-action">💬</span>
+                            <span class="instagram-action">📤</span>
+                        </div>
+                        <div class="instagram-likes">12,847 likes</div>
+                        <div class="instagram-caption">
+                            <strong>george_cuevas_esports</strong> Bristol Major tomorrow! 🔥 Ready to take down Fnatic AGAIN. Sorry not sorry @Fnatic fans 😏 #BristolMajor #Esports #Champion
+                        </div>
+                        <div class="instagram-time">March 15, 2024 · 7:00 PM</div>
+                    </div>
+                    <div class="instagram-post">
+                        <div class="instagram-header">
+                            <div class="instagram-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">GC</div>
+                            <div class="instagram-username">george_cuevas_esports ✓</div>
+                        </div>
+                        <div class="instagram-image" style="background: linear-gradient(135deg, #1a73e8, #0d47a1);">🏨✨</div>
+                        <div class="instagram-actions">
+                            <span class="instagram-action">❤️</span>
+                            <span class="instagram-action">💬</span>
+                            <span class="instagram-action">📤</span>
+                        </div>
+                        <div class="instagram-likes">8,234 likes</div>
+                        <div class="instagram-caption">
+                            <strong>george_cuevas_esports</strong> Checked into Mercure Bristol Grand Hotel! Room 412 vibes 🙌 See you all at the arena tomorrow!
+                        </div>
+                        <div class="instagram-time">March 15, 2024 · 5:30 PM</div>
+                    </div>
+                    </div>
+                    <div style="color: var(--text-muted); padding: 12px; border-radius: 8px; font-size: 11px; text-align: center; border: 1px dashed var(--border);">
+                        TIME OF DISCOVERY: MARCH 16, 09:12
+                    </div>
+                </div>`
+            },
+            'witness-statements': {
+                name: "Witness: Jack's Friends", type: 'Transcript', collected: false, phase: 2,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Anonymous Witness Statements</div><div class="document-meta">Jack's Friends</div></div>
+                <div class="document-section">
+                <p><strong>Friend 1:</strong> "Jack seemed really off that night. Kept talking about George and Fnatic. Dropped us in town then said he had 'something to do' before meeting us later. Never showed."</p>
+                <p><strong>Friend 2:</strong> "He was obsessed with the Fnatic match. Said George 'had it coming' if they lost. We thought he was joking."</p></div></div>`
+            },
+            'hotel-cctv': {
+                name: 'CCTV: Hotel Corridor', type: 'Video', collected: false, phase: 2,
+                content: `<img src="CCTV - JackInCorridor.png" class="evidence-img-display" alt="Hotel Corridor CCTV">
+                <div class="evidence-caption"><div class="evidence-caption-title">Hotel Security Footage - 4th Floor</div>
+                <p><strong>22:43</strong> - Male subject enters 4th floor corridor from service stairs. Wearing dark jacket and baseball cap.<br><strong>23:28</strong> - Subject exits 4th floor via same route.</p></div>`
+            },
+            'ellie-messages': {
+                name: "Ellie's Text Messages", type: 'Messages', collected: false, phase: 2,
+                content: `<div class="phone-screen">
+                    <div class="phone-header"><div style="font-weight: 600;">Ellie Miles</div><div style="font-size: 11px; color: var(--text-muted);">Messages (Recovered)</div></div>
+                    <div class="text-bubble sent"><div>George why won't you answer me?</div><div class="text-meta">March 15, 19:00</div></div>
+                    <div class="text-bubble sent"><div>I know you're in Bristol. We need to talk about us.</div><div class="text-meta">March 15, 20:15</div></div>
+                    <div class="text-bubble sent"><div>You can't ignore me forever. I'll always be here for you.</div><div class="text-meta">March 15, 21:30</div></div>
+                    <div class="text-bubble sent" style="background: var(--danger-dim); border: 1px solid var(--danger);"><div>I'M OUTSIDE YOUR ROOM GEORGE. IF YOU DON'T OPEN THIS DOOR I SWEAR TO GOD.</div><div class="text-meta">March 15, 22:50</div></div>
+                </div>`
+            },
+            'ellie-deleted-msgs': {
+                name: 'Ellie: Deleted Messages', type: 'Messages', collected: false, phase: 1,
+                content: `<div class="phone-screen">
+                    <div class="phone-header"><div style="font-weight: 600;">Ellie Miles</div><div style="font-size: 11px; color: var(--text-muted);">Cloud Recovery (Deleted)</div></div>
+                    <div class="text-bubble sent" style="opacity: 0.8;"><div>You're nothing without my flowers and support.</div><div class="text-meta">March 15, 23:05</div></div>
+                    <div class="text-bubble sent" style="opacity: 0.8;"><div>I saw you with that other girl in the lobby. You'll regret this.</div><div class="text-meta">March 15, 23:10</div></div>
+                    <div class="text-bubble sent" style="background: var(--danger-dim); border: 1px solid var(--danger);"><div>Fine. If I can't have you, NO ONE will.</div><div class="text-meta">March 15, 23:15</div></div>
+                </div>`
+            },
+            'joe-journal': {
+                name: "Joe's Digital Journal", type: 'Data', collected: false, phase: 1,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Private Journal Note</div><div class="document-meta">Device: Joe-iPhone-Mini</div></div>
+                <div class="document-section">
+                <p style="font-style: italic;">"March 15 - My heart is actually broken. I overheard George in the corridor today... he's leaving Bristol for good. Selling his Fnatic gear and going to America. He said fans like me are 'annoying' and 'obstructing his career'. He's a fraud. I've spent everything on him. I won't let him leave like this. He needs to know how much he's hurt us."</p>
+                <p style="margin-top: 16px; border-top: 1px solid var(--border); padding-top: 8px; font-size: 11px; color: var(--danger);">LOGGED LOCATION: Near Mercure Grand Hotel (22:48)</p></div></div>`
+            },
+            'josh-jack-msgs': {
+                name: 'Josh & Jack: Private Chat', type: 'Messages', collected: false, phase: 1,
+                content: `<div class="phone-screen">
+                    <div class="phone-header"><div style="font-weight: 600;">Jack (Bro)</div><div style="font-size: 11px; color: var(--text-muted);">Self-Destructing (Recovered)</div></div>
+                    <div class="text-bubble received"><div>Jack, did you see George's post? He's trash talking the team again.</div><div class="text-meta">March 15, 21:40</div></div>
+                    <div class="text-bubble sent"><div>I saw it. He thinks he's untouchable. I can't stand him.</div><div class="text-meta">March 15, 21:45</div></div>
+                    <div class="text-bubble received"><div>Let it go. You don't even know him personally. It's just hype.</div><div class="text-meta">March 15, 22:05</div></div>
+                    <div class="text-bubble sent"><div>It's not just hype. He's disrespectful. I'm going to the hotel to have a word.</div><div class="text-meta">March 15, 22:10</div></div>
+                    <div class="text-bubble received"><div>Don't be an idiot. I just left the gym, I'm heading home. Where are you?</div><div class="text-meta">March 15, 22:20</div></div>
+                    <div class="text-bubble sent"><div>Something came up. Go home, I'll talk to you tomorrow.</div><div class="text-meta">March 15, 22:25</div></div>
+                </div>`
+            },
+            'ellie-statement': {
+                name: "Ellie's Interview", type: 'Transcript', collected: false, phase: 2,
+                content: `<div class="document"><div class="document-header"><div class="document-title">Witness Interview</div><div class="document-meta">Ellie Miles (19)</div></div>
+                <div class="document-section"><p>"I was home alone all night. George and I... we had history. I just wanted to talk to him, that's all. I would never hurt him. I loved him."</p>
+                <p><strong>Investigator Note:</strong> Subject emotional. Claims to have been home alone, but witness accounts from 'Flores & Friends' suggest she may have been at the shop later than claimed. CCTV recovered from 22:50 shows a female subject matching her description in the hotel's rear service entrance at 22:50, but she exits at 22:55 - well before the murder window. She's clearly lying about her location, but timeline rules her out as the killer.</p></div></div>`
+            },
+            'bucharest-flights': {
+                name: '✈️ Flight Confirmation', type: 'Ticket', collected: false, phase: 4,
+                content: `<div class="document" style="background: #0d1117; color: #e6edf3; padding: 0; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; font-family: 'Inter', sans-serif;">
+                    <div style="background: #161b22; padding: 24px; border-bottom: 2px solid #d4af37; text-align: center;">
+                        <div style="font-size: 28px; margin-bottom: 4px;">✈️</div>
+                        <div style="font-size: 18px; font-weight: 700; color: #d4af37; letter-spacing: 2px; text-transform: uppercase;">Flight Confirmation</div>
+                        <div style="font-size: 11px; color: #8b949e; margin-top: 8px;">Ryanair - Booking Reference: <span style="color: #d4af37; font-weight: 600;">SURPRISE2024</span></div>
+                    </div>
+                    
+                    <div style="padding: 24px; border-bottom: 1px solid #30363d;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div style="background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid #30363d;">
+                                <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Outbound Flight</div>
+                                <div style="font-size: 20px; font-weight: 700; color: #d4af37; margin-bottom: 8px;">FR5341</div>
+                                <div style="font-size: 14px; font-weight: 600; margin-bottom: 16px;">Bristol (BRS) → Bucharest (OTP)</div>
+                                <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">Thu, 5th April 2024</div>
+                                <div style="font-size: 13px;">Departure: <strong style="color: #d4af37;">12:30</strong></div>
+                                <div style="font-size: 13px;">Arrival: <span style="color: #4ade80;">17:50</span></div>
+                            </div>
+                            
+                            <div style="background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid #30363d;">
+                                <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Return Flight</div>
+                                <div style="font-size: 20px; font-weight: 700; color: #d4af37; margin-bottom: 8px;">FR5342</div>
+                                <div style="font-size: 14px; font-weight: 600; margin-bottom: 16px;">Bucharest (OTP) → Bristol (BRS)</div>
+                                <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">Sat, 7th April 2024</div>
+                                <div style="font-size: 13px;">Departure: <strong style="color: #d4af37;">17:05</strong></div>
+                                <div style="font-size: 13px;">Arrival: <span style="color: #4ade80;">18:25</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #161b22; padding: 20px; border-top: 1px solid #d4af37; text-align: center;">
+                        <div style="font-size: 24px; font-weight: 800; color: #e6edf3; letter-spacing: 4px; margin-bottom: 4px;">RO</div>
+                        <div style="font-size: 11px; color: #d4af37; font-weight: 500;">Pack your bags, Detective!</div>
+                    </div>
+                </div>`
+            },
+            'bucharest-airbnb': {
+                name: '🏠 Accommodation', type: 'Booking', collected: false, phase: 4,
+                content: `<div class="document" style="background: #0d1117; color: #e6edf3; padding: 0; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; font-family: 'Inter', sans-serif;">
+                    <div style="background: linear-gradient(135deg, #FF5A5F 0%, #bd1e2e 100%); padding: 24px; text-align: center;">
+                        <div style="font-size: 28px; margin-bottom: 4px;">🏠</div>
+                        <div style="font-size: 18px; font-weight: 700; color: white; letter-spacing: 2px; text-transform: uppercase;">Airbnb Confirmation</div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 8px;">Reservation Code: <span style="font-weight: 600;">DETECTIVE2024</span></div>
+                    </div>
+                    
+                    <div style="padding: 24px;">
+                        <div style="background: #161b22; padding: 24px; border-radius: 12px; border: 1px solid #30363d; margin-bottom: 20px;">
+                            <div style="font-size: 22px; font-weight: 800; color: #FF5A5F; margin-bottom: 4px;">AIR Apartment & Garden</div>
+                            <div style="font-size: 13px; color: #8b949e; margin-bottom: 16px;">📍 Otopeni, Județul Ilfov, Romania</div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; padding: 16px 0; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d;">
+                                <div>
+                                    <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Check-in</div>
+                                    <div style="font-size: 16px; font-weight: 700;">Thu, 5th April</div>
+                                    <div style="font-size: 11px; color: #8b949e;">After 15:00</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: 1px;">Check-out</div>
+                                    <div style="font-size: 16px; font-weight: 700;">Sat, 7th April</div>
+                                    <div style="font-size: 11px; color: #8b949e;">Before 11:00</div>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 12px; color: #8b949e; line-height: 1.6;">
+                                <div style="margin-bottom: 8px;"><strong style="color: #e6edf3;">Location:</strong> Near Henri Coandă Airport (OTP) - Perfect for your flights!</div>
+                                <div style="margin-bottom: 8px;"><strong style="color: #e6edf3;">Property:</strong> Entire luxury flat with private garden</div>
+                                <div><strong style="color: #e6edf3;">Duration:</strong> 2 nights</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #161b22; padding: 16px; text-align: center; border-top: 1px solid #30363d;">
+                        <div style="font-size: 12px; color: #FF5A5F; font-weight: 600;">🛏️ Your luxury retreat in Romania</div>
+                    </div>
+                </div>`
+            },
+            'bucharest-therme': {
+                name: '💦 Therme Spa Pass', type: 'Activity', collected: false, phase: 4,
+                content: `<div class="document" style="background: #0d1117; color: #e6edf3; padding: 0; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; font-family: 'Inter', sans-serif;">
+                    <div style="background: linear-gradient(135deg, #00aaff 0%, #0077cc 100%); padding: 24px; text-align: center;">
+                        <div style="font-size: 28px; margin-bottom: 4px;">💦</div>
+                        <div style="font-size: 18px; font-weight: 700; color: white; letter-spacing: 2px; text-transform: uppercase;">Therme Bucharest</div>
+                        <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 8px;">VIP Platinum Night Session</div>
+                    </div>
+                    
+                    <div style="padding: 24px;">
+                        <div style="background: #161b22; padding: 24px; border-radius: 12px; border: 1px solid #30363d;">
+                            <div style="font-size: 18px; font-weight: 800; color: #00aaff; text-align: center; margin-bottom: 20px;">ACCESS ALL AREAS</div>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                                <div style="background: #0d1117; padding: 16px 8px; border-radius: 12px; text-align: center; border: 1px solid #30363d;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🌴</div>
+                                    <div style="font-size: 11px; font-weight: 700; color: #e6edf3;">The Palm</div>
+                                    <div style="font-size: 9px; color: #8b949e; text-transform: uppercase;">Relax</div>
+                                </div>
+                                <div style="background: #0d1117; padding: 16px 8px; border-radius: 12px; text-align: center; border: 1px solid #30363d;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">🌌</div>
+                                    <div style="font-size: 11px; font-weight: 700; color: #e6edf3;">Galaxy</div>
+                                    <div style="font-size: 9px; color: #8b949e; text-transform: uppercase;">Slides</div>
+                                </div>
+                                <div style="background: #0d1117; padding: 16px 8px; border-radius: 12px; text-align: center; border: 1px solid #30363d;">
+                                    <div style="font-size: 24px; margin-bottom: 8px;">✨</div>
+                                    <div style="font-size: 11px; font-weight: 700; color: #e6edf3;">Elysium</div>
+                                    <div style="font-size: 9px; color: #8b949e; text-transform: uppercase;">Spa</div>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 12px; color: #8b949e; line-height: 1.8; padding-top: 16px; border-top: 1px solid #30363d;">
+                                <div><strong style="color: #e6edf3;">📍 Address:</strong> Calea București 1K, Balotești</div>
+                                <div><strong style="color: #e6edf3;">🕐 Pass Validity:</strong> Night Session Only (18:00 - Close)</div>
+                                <div><strong style="color: #e6edf3;">🥂 Extras:</strong> Complimentary Drink at the Swim-up Bar</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #161b22; padding: 16px; text-align: center; border-top: 1px solid #30363d;">
+                        <div style="font-size: 12px; color: #00aaff; font-weight: 600;">🧖 Europe's largest thermal wellness complex</div>
+                    </div>
+                </div>`
+            }
+        };
+
+        // Notes persistence
+        function saveNotes() {
+            const notes = {
+                jack: document.getElementById('notes-jack')?.value || '',
+                josh: document.getElementById('notes-josh')?.value || '',
+                joe: document.getElementById('notes-joe')?.value || '',
+                ellie: document.getElementById('notes-ellie')?.value || '',
+                george: document.getElementById('notes-george')?.value || '',
+                general: document.getElementById('notes-general')?.value || ''
+            };
+            localStorage.setItem('bathBloodbath_notes', JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            try {
+                const saved = localStorage.getItem('bathBloodbath_notes');
+                if (saved) {
+                    const notes = JSON.parse(saved);
+                    if (document.getElementById('notes-jack')) document.getElementById('notes-jack').value = notes.jack || '';
+                    if (document.getElementById('notes-josh')) document.getElementById('notes-josh').value = notes.josh || '';
+                    if (document.getElementById('notes-joe')) document.getElementById('notes-joe').value = notes.joe || '';
+                    if (document.getElementById('notes-ellie')) document.getElementById('notes-ellie').value = notes.ellie || '';
+                    if (document.getElementById('notes-george')) document.getElementById('notes-george').value = notes.george || '';
+                    if (document.getElementById('notes-general')) document.getElementById('notes-general').value = notes.general || '';
+                }
+            } catch (e) {
+                console.error('Error loading notes:', e);
+            }
+        }
+
+        // Dev Mode - Unlock all evidence for testing
+        function promptDevMode() {
+            const password = prompt('Enter dev mode password:');
+            if (password === 'detective') {
+                unlockAllEvidence();
+                showNotification('🔓 Dev Mode Activated', 'All evidence unlocked for testing.');
+            } else if (password !== null) {
+                showNotification('❌ Access Denied', 'Incorrect password.');
+            }
+        }
+
+        function unlockAllEvidence() {
+            // Unlock all emails
+            emails.forEach(email => {
+                email.locked = false;
+                email.read = true;
+            });
+            
+            // Collect all evidence
+            Object.keys(evidenceData).forEach(id => {
+                evidenceData[id].collected = true;
+                if (!gameState.evidenceCollected.includes(id)) {
+                    gameState.evidenceCollected.push(id);
+                }
+            });
+            
+            // Update phase to max
+            gameState.currentPhase = 4;
+            
+            // Re-render everything
+            renderEmailList();
+            renderEvidence();
+            updateProgress();
+            updateEmailBadge();
+            
+            console.log('🔓 Dev Mode: All evidence and emails unlocked');
+        }
+
+        // Keyboard shortcut: Ctrl+Shift+D for dev mode
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+                e.preventDefault();
+                promptDevMode();
+            }
+        });
+
+
+        // Confetti celebration function
+        function launchConfetti() {
+            const container = document.createElement('div');
+            container.className = 'confetti-container';
+            document.body.appendChild(container);
+            
+            const colors = ['#c9a227', '#1a73e8', '#188038', '#d93025', '#f9ab00', '#fff'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(confetti);
+            }
+            
+            setTimeout(() => container.remove(), 5000);
+        }
+
+        // Phase loading transition
+        function showPhaseLoading(phaseNum) {
+            const overlay = document.createElement('div');
+            overlay.className = 'phase-loading';
+            overlay.innerHTML = `
+                <div class="phase-loading-text">PHASE ${phaseNum}</div>
+                <div style="color: var(--text-secondary); margin-top: 16px; font-size: 14px;">UNLOCKED</div>
+            `;
+            document.body.appendChild(overlay);
+            
+            setTimeout(() => overlay.remove(), 1500);
+        }
+
+
+
+        // LocalStorage persistence
+        function saveGameState() {
+            const saveData = {
+                ...gameState,
+                hintState: hintState,
+                emailStates: emails.map(e => ({ id: e.id, read: e.read, locked: e.locked }))
+            };
+            localStorage.setItem('bathBloodbath_save', JSON.stringify(saveData));
+        }
+
+        function loadGameState() {
+            const saved = localStorage.getItem('bathBloodbath_save');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    Object.assign(gameState, data);
+                    Object.assign(hintState, data.hintState || {});
+                    
+                    // Restore email states
+                    if (data.emailStates) {
+                        data.emailStates.forEach(savedEmail => {
+                            const email = emails.find(e => e.id === savedEmail.id);
+                            if (email) {
+                                email.read = savedEmail.read;
+                                email.locked = savedEmail.locked;
+                            }
+                        });
+                    }
+                    
+                    // Restore evidence collection
+                    if (data.evidenceCollected) {
+                        data.evidenceCollected.forEach(id => {
+                            if (evidenceData[id]) {
+                                evidenceData[id].collected = true;
+                            }
+                        });
+                    }
+                    
+                    return true;
+                } catch (e) {
+                    console.warn('Failed to load save:', e);
+                }
+            }
+            return false;
+        }
+
+        function resetGame() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('bathBloodbath_save');
+                localStorage.removeItem('bathBloodbath_notes');
+                location.reload();
+            }
+        }
+
+        function init() {
+            // Try to load saved game state
+            const hasLoad = loadGameState();
+            
+            renderEmailList();
+            renderEvidence();
+            updateProgress();
+            updateEmailBadge();
+            updateConnectionsCounter();
+            loadNotes();
+            
+            if (hasLoad && gameState.currentPhase > 1) {
+                showNotification('🔄 Progress Restored', 'Your investigation progress has been loaded.');
+            }
+        }
+
+        function showSection(id, event) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        function renderEmailList() {
+            const list = document.getElementById('emailList');
+            list.innerHTML = emails.map(email => `
+                <div class="email-item ${email.read ? '' : 'unread'} ${email.locked ? 'locked' : ''}" 
+                     onclick="${email.locked ? '' : `openEmail('${email.id}')`}">
+                    <div class="email-sender">${email.from}</div>
+                    <div class="email-subject">${email.subject}</div>
+                    <div class="email-preview">${email.locked ? '🔒 Complete previous phase' : email.preview}</div>
+                    <div class="email-time">${email.date}</div>
+                </div>
+            `).join('');
+        }
+
+        function openEmail(id) {
+            const email = emails.find(e => e.id === id);
+            if (!email || email.locked) return;
+            
+            // Check for new evidence before marking read (approximate check)
+            const newEvidence = email.attachments.filter(att => !gameState.evidenceCollected.includes(att.id));
+            
+            if (newEvidence.length > 0) {
+                 // Auto-collect all
+                newEvidence.forEach(att => {
+                    if (!gameState.evidenceCollected.includes(att.id)) {
+                        gameState.evidenceCollected.push(att.id);
+                        checkConnections(att.id); // Auto-check connections
+                    }
+                });
+                renderEvidence(); // Update locker
+                
+                // Show popup
+                showEvidenceCollectionPopup(newEvidence);
+            }
+
+            email.read = true;
+            renderEmailList();
+            updateEmailBadge();
+            
+            const viewer = document.getElementById('emailViewer');
+            viewer.innerHTML = `
+                <div class="email-header" style="animation: slideIn 0.3s ease; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px;">
+                    <div class="email-header-top">
+                        <div class="email-header-subject" style="font-size: 18px; font-weight: 600;">${email.subject}</div>
+                        <div class="header-attachments">
+                            ${email.attachments.map(att => `
+                                <div class="attachment-pill taken" 
+                                     onclick="showEvidence('${att.id}')" title="View Evidence">
+                                    <span class="attachment-pill-icon">${att.icon}</span>
+                                    <span>${att.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="email-meta-row" style="display: flex; gap: 24px; font-size: 12px; margin-bottom: 8px;">
+                        <span class="email-meta-label" style="color: var(--text-muted); width: 60px; flex-shrink: 0;">From:</span>
+                        <span class="email-meta-value"><strong>${email.from}</strong></span>
+                    </div>
+                    <div class="email-meta-row" style="display: flex; gap: 24px; font-size: 12px; margin-bottom: 8px;">
+                        <span class="email-meta-label" style="color: var(--text-muted); width: 60px; flex-shrink: 0;">To:</span>
+                        <span class="email-meta-value">${email.to}</span>
+                    </div>
+                    <div class="email-meta-row" style="display: flex; gap: 24px; font-size: 12px; margin-bottom: 8px;">
+                        <span class="email-meta-label" style="color: var(--text-muted); width: 60px; flex-shrink: 0;">Date:</span>
+                        <span class="email-meta-value font-mono">${email.date}</span>
+                    </div>
+                </div>
+                <div class="email-body" style="opacity: 0;">${email.content}</div>
+            `;
+            
+            // Animate email body with typewriter-like fade in
+            setTimeout(() => {
+                const body = viewer.querySelector('.email-body');
+                if (body) {
+                    body.style.transition = 'opacity 0.5s ease';
+                    body.style.opacity = '1';
+                }
+            }, 200);
+        }
+        
+        function showEvidenceCollectionPopup(items) {
+           const overlay = document.createElement('div');
+           overlay.style.cssText = `
+               position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+               background: rgba(10, 12, 16, 0.85);
+               display: flex; flex-direction: column; align-items: center; justify-content: center;
+               z-index: 10000; animation: fadeIn 0.3s ease;
+           `;
+           
+           const itemsHtml = items.map(item => `
+               <div style="background: var(--bg-tertiary); padding: 12px; border-radius: 6px; margin: 8px 0; display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); width: 100%;">
+                   <div style="font-size: 24px;">${item.icon}</div>
+                   <div style="text-align: left;">
+                       <div style="font-weight: 600; font-size: 14px;">${item.name}</div>
+                       <div style="font-size: 11px; color: var(--text-muted);">${item.type}</div>
+                   </div>
+               </div>
+           `).join('');
+           
+           overlay.innerHTML = `
+               <div style="background: var(--bg-secondary); padding: 32px; border-radius: 12px; border: 1px solid var(--police-blue); max-width: 400px; width: 90%; text-align: center; animation: slideUp 0.4s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+                   <div style="font-size: 48px; margin-bottom: 16px;">📂</div>
+                   <h2 style="margin-bottom: 8px; color: var(--text-primary);">New Evidence Received</h2>
+                   <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 24px;">The following items have been added to your case file:</p>
+                   <div style="margin-bottom: 24px;">
+                       ${itemsHtml}
+                   </div>
+                   <button class="btn" onclick="this.closest('div').parentElement.remove()">Review Evidence</button>
+               </div>
+           `;
+           
+           document.body.appendChild(overlay);
+           
+           // Sound effect simulation (visual only)
+           showNotification('📂 Evidence Locker Updated', `${items.length} new items added.`);
+        }
+
+        function updateEmailBadge() {
+            const unread = emails.filter(e => !e.read && !e.locked).length;
+            const badge = document.getElementById('emailBadge');
+            badge.textContent = unread;
+            badge.style.display = unread > 0 ? 'inline' : 'none';
+        }
+
+        function takeEvidence(id) {
+            if (gameState.evidenceCollected.includes(id)) {
+                showEvidence(id);
+                return;
+            }
+            gameState.evidenceCollected.push(id);
+            
+            // Show evidence unboxing animation
+            showEvidenceUnboxing(evidenceData[id]);
+            
+            // Check for connections with already collected evidence
+            checkConnections(id);
+            
+            renderEvidence();
+            document.getElementById('evidenceCount').textContent = gameState.evidenceCollected.length;
+        }
+        
+        function showEvidenceUnboxing(item) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(10, 12, 16, 0.9);
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                z-index: 9999; animation: fadeIn 0.3s ease;
+            `;
+            overlay.innerHTML = `
+                <div style="animation: scaleIn 0.5s ease; text-align: center;">
+                    <div style="font-size: 64px; margin-bottom: 16px; animation: pulse 1s infinite;">📦</div>
+                    <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Evidence Collected</div>
+                    <div style="font-size: 24px; font-weight: 700; color: var(--accent);">${item.name}</div>
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">${item.type}</div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            
+            // Add extra CSS for scaleIn animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes scaleIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            `;
+            document.head.appendChild(style);
+            
+            setTimeout(() => {
+                overlay.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => {
+                    overlay.remove();
+                    showNotification('Evidence Collected', `${item.name} added to locker.`);
+                }, 300);
+            }, 1200);
+        }
+
+        function checkConnections(newId) {
+            const links = evidenceLinks[newId] || [];
+            let newConnections = 0;
+            
+            links.forEach(linkedId => {
+                if (gameState.evidenceCollected.includes(linkedId) && 
+                    !gameState.connectionsFound.includes(`${newId}-${linkedId}`) &&
+                    !gameState.connectionsFound.includes(`${linkedId}-${newId}`)) {
+                    gameState.connectionsFound.push(`${newId}-${linkedId}`);
+                    newConnections++;
+                    
+                    // Show connection found notification
+                    const newName = evidenceData[newId].name;
+                    const linkedName = evidenceData[linkedId].name;
+                    showNotification('🔗 Connection Found!', `${newName} ↔ ${linkedName}`);
+                }
+            });
+            
+            if (newConnections > 0) {
+                updateConnectionsCounter();
+            }
+        }
+
+        function updateConnectionsCounter() {
+            const counter = document.getElementById('connectionsCounter');
+            const count = document.getElementById('connectionsCount');
+            if (counter && count) {
+                counter.style.display = 'flex';
+                count.textContent = gameState.connectionsFound.length;
+                
+                // Pulse animation on counter
+                counter.style.animation = 'pulseClue 0.5s';
+                setTimeout(() => counter.style.animation = '', 500);
+            }
+        }
+
+        function renderEvidence() {
+            const grid = document.getElementById('evidenceGrid');
+            const collectedIds = gameState.evidenceCollected;
+            
+            if (collectedIds.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No evidence collected yet. Review your emails to find clues.</div>';
+                return;
+            }
+
+            grid.innerHTML = collectedIds.filter(id => evidenceData[id]).map(id => {
+                const item = evidenceData[id];
+                return `
+                    <div class="evidence-card" onclick="showEvidence('${id}')">
+                        <div class="evidence-icon">${item.type === 'Images' || item.type === 'Video' || item.type === '📸' ? '📸' : item.type === 'PDF' ? '📄' : '📋'}</div>
+                        <div class="evidence-name">${item.name}</div>
+                        <div class="evidence-type">${item.type}</div>
+                        <span class="evidence-status collected">✓ Collected</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showEvidence(id) {
+            const item = evidenceData[id];
+            if (!item) return;
+            document.getElementById('modalTitle').textContent = item.name;
+            document.getElementById('modalBody').innerHTML = item.content;
+            document.getElementById('evidenceModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('evidenceModal').classList.remove('active');
+        }
+
+        function normalizeAnswer(input) {
+            return input.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+        }
+
+        function checkPhase1() {
+            const inputVal = document.getElementById('answer-phase1').value.trim().toLowerCase();
+            const currentEmail = emails.find(e => e.id === 'email-1');
+            
+            if (currentEmail.answer.some(a => a.toLowerCase() === inputVal)) {
+                gameState.currentPhase = 2;
+                const nextEmail = emails.find(e => e.id === 'email-2');
+                if (nextEmail) nextEmail.locked = false;
+                
+                if (!gameState.evidenceCollected.includes('gym-log')) {
+                    gameState.evidenceCollected.push('gym-log');
+                    evidenceData['gym-log'].collected = true;
+                }
+                
+                const feedback = document.getElementById('phase1-feedback');
+                feedback.className = 'text-success';
+                feedback.innerHTML = '✅ ACCESS GRANTED. Josh\'s Alibi Verified. Proceeding to Phase 2.';
+                
+                updateProgress();
+                renderEmailList();
+                renderEvidence();
+                showPhaseLoading(2);
+                saveGameState();
+                showNotification('PHASE 1 COMPLETE', 'Josh Osborne ruled out.');
+                
+                setTimeout(() => {
+                    openEmail('email-2');
+                }, 1500);
+            } else {
+                const feedback = document.getElementById('phase1-feedback');
+                feedback.className = 'text-danger';
+                feedback.innerHTML = '❌ INCORRECT TIME. Check the Gym Portal again.';
+            }
+        }
+
+        function checkPhase2() {
+            const jack = document.getElementById('answer-jack').value.trim().toLowerCase();
+            const ellie = document.getElementById('answer-ellie').value.trim().toLowerCase();
+            const joe = document.getElementById('answer-joe').value.trim().toLowerCase();
+            const currentEmail = emails.find(e => e.id === 'email-2');
+            
+            const jackCorrect = currentEmail.answers.jack.includes(jack);
+            const ellieCorrect = currentEmail.answers.ellie.includes(ellie);
+            const joeCorrect = currentEmail.answers.joe.includes(joe);
+            
+            if (jackCorrect && ellieCorrect && joeCorrect) {
+                gameState.currentPhase = 3; // Changed from gameState.phase to gameState.currentPhase
+                const nextEmail = emails.find(e => e.id === 'email-3');
+                if (nextEmail) nextEmail.locked = false; // Unlock email-3
+                
+                const feedback = document.getElementById('phase2-feedback');
+                feedback.className = 'text-success';
+                feedback.innerHTML = '✅ ALIBIS VERIFIED. Discrepancies found with Jack\'s story. Proceed to final report.';
+                
+                updateProgress(); // Use existing updateProgress
+                renderEmailList();
+                showPhaseLoading(3);
+                saveGameState();
+                showNotification('PHASE 2 COMPLETE', 'Alibi verification successful. Final phase unlocked.');
+                
+                setTimeout(() => {
+                    openEmail('email-3'); // Use existing openEmail
+                }, 1500);
+            } else {
+                const feedback = document.getElementById('phase2-feedback');
+                feedback.className = 'text-danger';
+                feedback.innerHTML = '❌ Alibis do not match our evidence. Check CCTV and phone logs again.';
+            }
+        }
+
+        function checkPhase3() {
+            const killer = document.getElementById('answer-killer').value.trim().toLowerCase();
+            const currentEmail = emails.find(e => e.id === 'email-3');
+            
+            const killerCorrect = currentEmail.answers.killer.some(a => a.toLowerCase() === killer);
+            
+            if (killerCorrect) {
+                gameState.arrestMade = true;
+                gameState.gameComplete = true;
+                gameState.currentPhase = 4;
+                
+                const feedback = document.getElementById('phase3-feedback');
+                feedback.className = 'text-success';
+                feedback.innerHTML = '✅ REPORT AUTHORIZED. Arrest warrant issued for Jack Osborne.';
+                
+                // Show dramatic case closure overlay
+                showCaseClosureOverlay();
+                
+                document.querySelector('.case-classification').textContent = 'CASE CLOSED';
+                document.querySelector('.case-classification').style.cssText = 'background: var(--success); color: white; border-color: var(--success);';
+                
+                saveGameState();
+                
+            } else {
+                const feedback = document.getElementById('phase3-feedback');
+                feedback.className = 'text-danger';
+                feedback.innerHTML = '❌ REPORT REJECTED: Inaccurate information or insufficient evidence.';
+            }
+        }
+        
+        function showCaseClosureOverlay() {
+            const overlay = document.createElement('div');
+            overlay.id = 'caseClosureOverlay';
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+                background: rgba(10, 12, 16, 0.98);
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                z-index: 10000; animation: fadeIn 0.5s ease;
+            `;
+            
+            overlay.innerHTML = `
+                <div style="text-align: center; animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);">
+                    <div style="font-size: 80px; margin-bottom: 24px;">🎉</div>
+                    <div style="font-size: 48px; font-weight: 800; color: var(--success); text-transform: uppercase; letter-spacing: 6px; margin-bottom: 16px; text-shadow: 0 0 30px rgba(24, 128, 56, 0.5);">
+                        CASE CLOSED
+                    </div>
+                    <div style="font-size: 20px; color: var(--text-secondary); margin-bottom: 32px; max-width: 600px;">
+                        Arrest warrant issued for <span style="color: var(--accent); font-weight: 700;">Jack Osborne</span>
+                    </div>
+                    <div style="background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 12px; padding: 24px 40px; margin-bottom: 32px;">
+                        <div style="font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Murder of</div>
+                        <div style="font-size: 24px; font-weight: 700; color: var(--text-primary);">George Cuevas</div>
+                        <div style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">Case BRI-2024-BATH</div>
+                    </div>
+                    <div style="display: flex; gap: 24px; justify-content: center; margin-bottom: 40px;">
+                        <div style="background: var(--police-blue); padding: 16px 24px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--accent);">3</div>
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Phases</div>
+                        </div>
+                        <div style="background: var(--police-blue); padding: 16px 24px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--accent);" id="evidenceCountFinal">0</div>
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Evidence</div>
+                        </div>
+                        <div style="background: var(--police-blue); padding: 16px 24px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--success);">✓</div>
+                            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Solved</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 14px; color: var(--text-muted); animation: pulse 2s infinite;">
+                        Please wait for your reward notification...
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            
+            // Update evidence count
+            setTimeout(() => {
+                const countEl = document.getElementById('evidenceCountFinal');
+                if (countEl) countEl.textContent = gameState.evidenceCollected.length;
+            }, 100);
+            
+            // Launch confetti
+            setTimeout(() => launchConfetti(), 500);
+            
+            // Show first notification and remove overlay
+            setTimeout(() => {
+                overlay.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => overlay.remove(), 500);
+                
+                showNotification('🏆 CASE CLOSED', 'Jack Osborne has been arrested. Check your inbox!');
+            }, 4000);
+            
+            // Unlock epilogue email
+            setTimeout(() => {
+                const epilogueEmail = emails.find(e => e.id === 'email-epilogue');
+                if (epilogueEmail) {
+                    epilogueEmail.locked = false;
+                    renderEmailList();
+                    updateEmailBadge();
+                    document.getElementById('emailBadge').style.display = 'inline';
+                    document.getElementById('emailBadge').style.background = 'var(--accent)';
+                    
+                    showNotification('🎉 NEW EMAIL', 'From Chief Superintendent Davies - Click to open!', {
+                        sticky: true,
+                        onclick: () => {
+                            openEmail('email-epilogue');
+                            showSection('emails', null);
+                            document.getElementById('notification').classList.remove('show');
+                        }
+                    });
+                }
+            }, 6000);
+            
+            // Unlock the "change of plans" email after reading the first one or after delay
+            setTimeout(() => {
+                const epilogue2 = emails.find(e => e.id === 'email-epilogue-2');
+                if (epilogue2 && epilogue2.locked) {
+                    epilogue2.locked = false;
+                    renderEmailList();
+                    updateEmailBadge();
+                    document.getElementById('emailBadge').style.display = 'inline';
+                    document.getElementById('emailBadge').style.background = 'var(--warning)';
+                    
+                    showNotification('⚠️ UPDATE', 'New email from Chief Superintendent Davies - Change of plans!', {
+                        sticky: true,
+                        onclick: () => {
+                            openEmail('email-epilogue-2');
+                            showSection('emails', null);
+                            document.getElementById('notification').classList.remove('show');
+                        }
+                    });
+                }
+            }, 20000);
+        }
+        
+        function showPhaseLoading(phase) {
+            const overlay = document.createElement('div');
+            overlay.className = 'phase-loading';
+            overlay.innerHTML = `<div class="phase-loading-text">PHASE ${phase} UNLOCKED</div>`;
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.remove(), 1500);
+        }
+
+        function unlockPhase(phase) {
+            gameState.currentPhase = phase;
+            gameState.phaseUnlocked[phase] = true;
+            
+            // Unlock Phase 2 email and add gym log to evidence
+            if (phase === 2) {
+                const nextEmail = emails.find(e => e.id === 'email-2');
+                if (nextEmail) {
+                    nextEmail.locked = false;
+                    renderEmailList();
+                }
+                // Auto-add gym log to evidence when Phase 2 unlocked
+                if (!gameState.evidenceCollected.includes('gym-log')) {
+                    gameState.evidenceCollected.push('gym-log');
+                    showNotification('📋 New Evidence', 'JD Gym Check-in Log added to locker.');
+                    renderEvidence();
+                    document.getElementById('evidenceCount').textContent = gameState.evidenceCollected.length;
+                }
+            }
+            
+            // Unlock Phase 3 email
+            if (phase === 3) {
+                const nextEmail = emails.find(e => e.id === 'email-3');
+                if (nextEmail) {
+                    nextEmail.locked = false;
+                    renderEmailList();
+                }
+            }
+            
+            updateProgress();
+            document.getElementById('taskCount').textContent = phase < 3 ? 1 : 0;
+        }
+
+        function updateProgress() {
+            document.getElementById('progressStatus').textContent = `PHASE ${gameState.currentPhase} OF 3`;
+            for (let i = 1; i <= 3; i++) {
+                const seg = document.getElementById(`seg${i}`);
+                seg.classList.remove('completed', 'active');
+                if (i < gameState.currentPhase) seg.classList.add('completed');
+                else if (i === gameState.currentPhase) seg.classList.add('active');
+            }
+        }
+
+        function showNotification(title, text, options = {}) {
+            const oldNotif = document.getElementById('notification');
+            const notif = oldNotif.cloneNode(true);
+            oldNotif.parentNode.replaceChild(notif, oldNotif);
+
+            notif.querySelector('#notifTitle').textContent = title;
+            notif.querySelector('#notifText').textContent = text;
+            notif.classList.add('show');
+            
+            if (options.sticky) {
+                if (options.onclick) {
+                    notif.style.cursor = 'pointer';
+                    notif.onclick = options.onclick;
+                }
+            } else {
+                notif.style.cursor = 'default';
+                notif.onclick = null;
+                setTimeout(() => notif.classList.remove('show'), 4000);
+            }
+        }
+
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#c9a227', '#1a3a5c', '#2d5a8f', '#188038', '#f9ab00', '#ff6b6b', '#4ecdc4'];
+            
+            for (let i = 0; i < 150; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-20px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 15 + 10) + 'px';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 20);
+            }
+        }
+
+        /* Browser and Portal Functions */
+        function loadBrowserUrl(url) {
+            const urlDisplay = document.getElementById('browserUrl');
+            const content = document.getElementById('browserContent');
+            urlDisplay.textContent = url;
+            
+            if (url.includes('jdgyms.co.uk/login')) {
+                content.innerHTML = `
+                    <div class="gym-portal">
+                        <div class="gym-logo">JD <span>GYMS</span></div>
+                        <div class="gym-login-card">
+                            <div class="gym-input-group">
+                                <label class="gym-label">Member ID / Email</label>
+                                <input type="text" class="gym-input" value="josh_os_eng@outlook.com" readonly>
+                            </div>
+                            <div class="gym-input-group">
+                                <label class="gym-label">Password</label>
+                                <input type="password" class="gym-input" id="gymPassword" placeholder="Enter password">
+                            </div>
+                            <button class="gym-btn" onclick="handleGymLogin()">Login</button>
+                            <div style="margin-top: 24px; text-align: center; font-size: 12px; color: #666;">
+                                <a href="#" style="color: #666; text-decoration: none;">Forgot Password?</a> | <a href="#" style="color: #666; text-decoration: none;">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (url.includes('phonefinder-police.uk')) {
+                content.innerHTML = `
+                    <div class="phonefinder-portal">
+                        <div class="phonefinder-logo">📡 PhoneFinder</div>
+                        <p style="color: #65676b; font-size: 14px;">Authorized Police Tracking System v4.2</p>
+                        
+                        <div class="phonefinder-search-box">
+                            <label style="display: block; font-size: 11px; font-weight: 700; color: #65676b; text-transform: uppercase; margin-bottom: 12px; text-align: left;">Enter Device Number</label>
+                            <input type="text" class="phonefinder-input" id="trackNumber" placeholder="07XXX XXXXXX" maxlength="12">
+                            <button class="phonefinder-btn" onclick="trackPhone()">INITIATE SIGNAL PING</button>
+                            <div id="trackFeedback" style="margin-top: 12px; font-size: 13px;"></div>
+                        </div>
+                        
+                        <div id="trackResults" class="hidden">
+                            <div class="ping-results" style="animation: fadeIn 0.5s ease;">
+                                <h3 style="margin-bottom: 16px; color: #1a73e8;">Live Location Pings: Joe Bedford</h3>
+                                <div class="ping-item">
+                                    <div class="ping-time">22:50:12</div>
+                                    <div class="ping-loc">BS14 0DE - Near Entrance</div>
+                                    <div class="ping-status status-active">LIVE</div>
+                                </div>
+                                <div class="ping-item">
+                                    <div class="ping-time">22:55:40</div>
+                                    <div class="ping-loc">BS14 0DE - Moving North</div>
+                                    <div class="ping-status status-active">STABLE</div>
+                                </div>
+                                <div class="ping-item">
+                                    <div class="ping-time">23:15:22</div>
+                                    <div class="ping-loc">BS14 0DE - Station Rd</div>
+                                    <div class="ping-status status-active">STABLE</div>
+                                </div>
+                                <div class="ping-item">
+                                    <div class="ping-time">23:32:05</div>
+                                    <div class="ping-loc">BS14 0DE - Perimeter Exit</div>
+                                    <div class="ping-status status-active">DROPPED</div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 24px; padding: 16px; background: #e8f5e9; border: 1px solid #81c784; border-radius: 8px; font-size: 12px; color: #2e7d32; text-align: left;">
+                                <strong>STATION NOTE:</strong> Target device located at "BS14 0DE" during the suspected incident window. This IS the postcode for Hengrove Leisure Center. Joe Bedford's alibi CONFIRMED.
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (url.includes('facebook.com') || url.includes('outlook.com')) {
+                content.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #65676b; background: #fff; padding: 20px; text-align: center;">
+                        <span style="font-size: 64px; margin-bottom: 24px;">🚫</span>
+                        <h2 style="margin-bottom: 12px; color: #1c1e21;">Access Forbidden</h2>
+                        <p>Internal police department network restrictions prevent access to social media and external email providers from this workstation.</p>
+                        <p style="margin-top: 24px; font-size: 12px; color: #8a8d91;">CODE: POLICE_NET_RESTRICT_403</p>
+                    </div>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #65676b;">
+                        <span style="font-size: 48px; margin-bottom: 16px;">🔍</span>
+                        <p>Searching for ${url}...</p>
+                    </div>
+                `;
+            }
+        }
+
+        function trackPhone() {
+            const num = document.getElementById('trackNumber').value.replace(/\s+/g, '');
+            const feedback = document.getElementById('trackFeedback');
+            const results = document.getElementById('trackResults');
+            
+            if (num === '07700900412') {
+                feedback.innerHTML = '<span style="color: #188038;">✓ Connection established. Pinging...</span>';
+                results.classList.remove('hidden');
+                const bookmark = document.getElementById('phoneFinderBookmark');
+                if (bookmark) bookmark.classList.remove('new-alert');
+                showNotification('📡 SIGNAL ACQUIRED', 'Joe Bedford\'s location history recovered.');
+            } else {
+                feedback.innerHTML = '<span style="color: #d93025;">! Number not found in police database or invalid format.</span>';
+                results.classList.add('hidden');
+            }
+        }
+
+        function handlePasswordReset() {
+            const popup = document.getElementById('resetPopup');
+            popup.classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('resetPopup').classList.remove('active');
+        }
+
+        function handleGymLogin() {
+            const pass = document.getElementById('gymPassword').value.trim().toLowerCase();
+            if (pass === 'gym2024') {
+                const content = document.getElementById('browserContent');
+                content.innerHTML = `
+                    <div class="gym-dashboard">
+                        <div class="gym-logo" style="text-align: left; font-size: 24px; margin-bottom: 24px;">JD <span>GYMS</span></div>
+                        
+                        <div class="gym-user-header">
+                            <div style="font-size: 12px; color: #666; font-weight: 700; text-transform: uppercase;">Member Profile</div>
+                            <div style="font-size: 28px; font-weight: 900; margin: 4px 0;">JOSH OSBORNE</div>
+                            <div style="font-size: 13px; color: #A2FF00; font-weight: 600;">ACTIVE MEMBER • BRISTOL SOUTH</div>
+                        </div>
+
+                        <h3 style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; color: #666;">Recent Check-ins</h3>
+                        
+                        <div class="gym-session-list">
+                            <div class="gym-session-item">
+                                <div class="gym-session-info">
+                                    <div style="font-weight: 800;">March 15, 2024</div>
+                                    <div style="font-size: 12px; color: #666;">Push Session • 1h 45m</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="gym-session-tag">Left @ 21:15</div>
+                                </div>
+                            </div>
+                            <div class="gym-session-item">
+                                <div class="gym-session-info">
+                                    <div style="font-weight: 800;">March 12, 2024</div>
+                                    <div style="font-size: 12px; color: #666;">Pull Session • 1h 12m</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="gym-session-tag">Left @ 20:42</div>
+                                </div>
+                            </div>
+                            <div class="gym-session-item">
+                                <div class="gym-session-info">
+                                    <div style="font-weight: 800;">March 09, 2024</div>
+                                    <div style="font-size: 12px; color: #666;">Leg Session • 1h 55m</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="gym-session-tag">Left @ 21:05</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gym-security-alert">
+                            <strong style="color: orange; display: block; margin-bottom: 4px;">⚠️ SECURITY NOTICE</strong>
+                            <span style="color: #999; line-height: 1.4;">Multiple login attempts detected from a non-registered police network. If this wasn't you, please change your password immediately.</span>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('browserUrl').textContent = 'https://www.jdgyms.co.uk/portal';
+            } else {
+                alert('Invalid password. Hint: gym + registration year (Check your emails).');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>
